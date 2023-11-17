@@ -1,22 +1,24 @@
 import './App.css';
-import { Grid, Button } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
+// Fonts
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { HeaderComponent } from './components/header/HeaderComponent';
 
 function App() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Button variant="contained">Hola</Button>
-          Rifas
+        <HeaderComponent />
+        <Grid item xs={12}>
+          <p style={{ textAlign: 'left' }}>
+            Welcome to the rifas let's setup the game
+          </p>
         </Grid>
-        <Grid item xs={4}>
-          xs=4
-        </Grid>
-        <Grid item xs={4}>
-          xs=4
-        </Grid>
-        <Grid item xs={8}>
-          xs=8
+        <Grid item>
+          <TextField label="How many players?" variant="standard" />
         </Grid>
       </Grid>
     </>
