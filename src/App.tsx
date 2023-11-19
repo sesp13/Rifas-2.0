@@ -1,26 +1,26 @@
-import './App.css';
-import { Grid, TextField } from '@mui/material';
 // Fonts
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import './App.scss';
 import { HeaderComponent } from './components/header/HeaderComponent';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { AppRoutes } from './AppRoutes';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
     <>
-      <Grid container spacing={2}>
+      <ThemeProvider theme={darkTheme}>
         <HeaderComponent />
-        <Grid item xs={12}>
-          <p style={{ textAlign: 'left' }}>
-            Welcome to the rifas let's setup the game
-          </p>
-        </Grid>
-        <Grid item>
-          <TextField label="How many players?" variant="standard" />
-        </Grid>
-      </Grid>
+        <AppRoutes />
+      </ThemeProvider>
     </>
   );
 }
