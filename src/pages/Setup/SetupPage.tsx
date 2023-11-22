@@ -2,28 +2,27 @@ import { Button, Grid, TextField } from '@mui/material';
 import { useForm } from '../../hooks/useForm';
 import './SetupPage.scss';
 import { FormEvent } from 'react';
-
-const initialForm = {
-  players: 0,
-  kickOutValue: 1000,
-  entryValue: 1000,
-  pointLimit: 100,
-};
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, setupGame } from '../../store';
 
 export const SetupPage = () => {
-  const {
-    onInputChange,
-    players,
-    kickOutValue,
-    entryValue,
-    pointLimit,
-    formState,
-  } = useForm(initialForm);
+  const gameState = useSelector((state: RootState) => state.game);
+  const dispatch = useDispatch();
+
+  const initialForm = {
+    numberOfPlayers: 2,
+    entryValue: gameState.entryValue,
+    kickOutValue: gameState.kickOutValue,
+    pointLimit: gameState.pointLimit,
+  };
+
+  const { onInputChange, numberOfPlayers, kickOutValue, entryValue, pointLimit } =
+    useForm(initialForm);
 
   const submitSetupForm = (e: FormEvent) => {
     e.preventDefault();
-    console.log('SETUP');
-    console.log(formState);
+    const action = setupGame({ entryValue, kickOutValue, pointLimit, numberOfPlayers });
+    dispatch(action);
   };
 
   return (
@@ -39,10 +38,10 @@ export const SetupPage = () => {
             <TextField
               fullWidth
               label="¿Cuántos jugadores?"
-              name="players"
+              name="numberOfPlayers"
               onChange={onInputChange}
               type="number"
-              value={players}
+              value={numberOfPlayers}
               variant="standard"
             />
           </Grid>
