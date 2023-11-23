@@ -16,18 +16,28 @@ export const SetupPage = () => {
     pointLimit: gameState.pointLimit,
   };
 
-  const { onInputChange, numberOfPlayers, kickOutValue, entryValue, pointLimit } =
-    useForm(initialForm);
+  const {
+    onInputChange,
+    numberOfPlayers,
+    kickOutValue,
+    entryValue,
+    pointLimit,
+  } = useForm(initialForm);
 
   const submitSetupForm = (e: FormEvent) => {
     e.preventDefault();
-    const action = setupGame({ entryValue, kickOutValue, pointLimit, numberOfPlayers });
+    const action = setupGame({
+      entryValue,
+      kickOutValue,
+      pointLimit,
+      numberOfPlayers,
+    });
     dispatch(action);
   };
 
   return (
     <>
-      <form onSubmit={submitSetupForm}>
+      <form id="setupForm" onSubmit={submitSetupForm}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <p className="welcome-label">
@@ -79,7 +89,12 @@ export const SetupPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth variant="contained" type="submit">
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              aria-label="submit-btn"
+            >
               Enviar
             </Button>
           </Grid>
