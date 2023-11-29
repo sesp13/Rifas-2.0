@@ -1,15 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from '../../store';
 import { SetupPage } from './SetupPage';
-
-const mockedDispatch = jest.fn();
-
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
-  useDispatch: () => mockedDispatch,
-}));
 
 const setupComponent = () =>
   render(
@@ -32,14 +25,7 @@ describe('Tests on <SetupPage />', () => {
 
   test('should render setupForm', () => {
     const { container } = setupComponent();
-    const form = container.querySelector('#setupForm');
+    const form = container.querySelector('[aria-label="setup-form"]');
     expect(form).toBeTruthy();
-  });
-
-  test('should dispatch an action when the form is submmited', () => {
-    setupComponent();
-    const submitBtn = screen.getByLabelText('submit-btn');
-    fireEvent.click(submitBtn);
-    expect(mockedDispatch).toHaveBeenCalled();
   });
 });

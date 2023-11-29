@@ -2,25 +2,26 @@
 
 exports[`Tests on <SetupPage /> should match the snapshot 1`] = `
 <div>
+  <div
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-13i4rnv-MuiGrid-root"
+  >
+    <p
+      class="welcome-label"
+    >
+      Bienvenido a la Rifa, por favor configura tu juego
+    </p>
+  </div>
   <form
-    id="setupForm"
+    aria-label="setup-form"
   >
     <div
       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-      >
-        <p
-          class="welcome-label"
-        >
-          Bienvenido a la Rifa, por favor configura tu juego
-        </p>
-      </div>
-      <div
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
       >
         <div
+          aria-label="numberOfPlayers"
           class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
         >
           <label
