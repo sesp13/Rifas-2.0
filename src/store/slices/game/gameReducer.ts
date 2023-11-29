@@ -5,9 +5,9 @@ import { Player } from '../../../interfaces';
 const getInitialState = (): GameState => {
   return {
     players: [],
-    entryValue: 1000,
-    kickOutValue: 1000,
-    pointLimit: 100,
+    entryValue: 0,
+    kickOutValue: 0,
+    pointLimit: 0,
   };
 };
 
@@ -34,7 +34,6 @@ export const gameSlice = createSlice({
       for (let i = 0; i < numberOfPlayers; i++) {
         players.push({ name: '', kickOuts: 0, points: 0 });
       }
-      console.log(players);
 
       state.players = players;
     },

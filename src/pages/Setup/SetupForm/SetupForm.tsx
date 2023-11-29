@@ -1,8 +1,8 @@
 import { Button, Grid, TextField } from '@mui/material';
 import { FormEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FormValidation, useForm } from '../../../hooks/useForm';
-import { RootState, setupGame } from '../../../store';
+import { setupGame } from '../../../store';
 import { isValidNumberAndGreaterThanZero } from '../../../helpers';
 
 interface initialSetUpFormType {
@@ -32,14 +32,13 @@ const validations: FormValidation = {
 };
 
 export const SetupForm = () => {
-  const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch();
 
   const initialForm: initialSetUpFormType = {
-    numberOfPlayers: 2,
-    entryValue: gameState.entryValue,
-    kickOutValue: gameState.kickOutValue,
-    pointLimit: gameState.pointLimit,
+    numberOfPlayers: 0,
+    entryValue: 0,
+    kickOutValue: 0,
+    pointLimit: 0,
   };
 
   const {
@@ -49,7 +48,8 @@ export const SetupForm = () => {
     entryValue,
     pointLimit,
     isFormValid,
-    formValidation,
+    isFormValueValid,
+    showFormValueInvalidMessage,
   } = useForm(initialForm, validations);
 
   const submitSetupForm = (e: FormEvent) => {
@@ -67,7 +67,7 @@ export const SetupForm = () => {
 
   return (
     <>
-      <form aria-label='setup-form' onSubmit={submitSetupForm}>
+      <form aria-label="setup-form" onSubmit={submitSetupForm}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <TextField
@@ -76,11 +76,10 @@ export const SetupForm = () => {
               name="numberOfPlayers"
               onChange={onInputChange}
               type="number"
-              value={numberOfPlayers}
               variant="standard"
-              error={formValidation['numberOfPlayersValid'] !== null}
-              helperText={formValidation['numberOfPlayersValid']}
-              aria-label='numberOfPlayers'
+              error={isFormValueValid('numberOfPlayers')}
+              helperText={showFormValueInvalidMessage('numberOfPlayers')}
+              aria-label="numberOfPlayers"
             />
           </Grid>
           <Grid item xs={6}>
@@ -90,10 +89,9 @@ export const SetupForm = () => {
               name="kickOutValue"
               onChange={onInputChange}
               type="number"
-              value={kickOutValue}
               variant="standard"
-              error={formValidation['kickOutValueValid'] !== null}
-              helperText={formValidation['kickOutValueValid']}
+              error={isFormValueValid('kickOutValue')}
+              helperText={showFormValueInvalidMessage('kickOutValue')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -103,10 +101,9 @@ export const SetupForm = () => {
               name="entryValue"
               onChange={onInputChange}
               type="number"
-              value={entryValue}
               variant="standard"
-              error={formValidation['entryValueValid'] !== null}
-              helperText={formValidation['entryValueValid']}
+              error={isFormValueValid('entryValue')}
+              helperText={showFormValueInvalidMessage('entryValue')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -116,10 +113,9 @@ export const SetupForm = () => {
               name="pointLimit"
               onChange={onInputChange}
               type="number"
-              value={pointLimit}
               variant="standard"
-              error={formValidation['pointLimitValid'] !== null}
-              helperText={formValidation['pointLimitValid']}
+              error={isFormValueValid('pointLimit')}
+              helperText={showFormValueInvalidMessage('pointLimit')}
             />
           </Grid>
           <Grid item xs={12}>

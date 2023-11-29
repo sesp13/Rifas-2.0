@@ -8,12 +8,24 @@ export interface FormErrors {
   [key: string]: null | string;
 }
 
+export interface InputProperties {
+  touched: boolean;
+  value: any;
+}
+
 export function useForm<T extends Record<string, any>>(
   initialForm: T,
   formValidations: FormValidation = {}
 ) {
   const [formState, setFormState] = useState(initialForm);
   const [formValidation, setformValidation] = useState({} as FormErrors);
+  const initialInputProperties: Record<string, InputProperties> = {};
+  Object.keys(initialForm).map((key) => {
+    initialInputProperties[key] = { touched: false, value: initialForm[key] };
+  });
+  const [inputProperties, setInputProperties] = useState(
+    initialInputProperties
+  );
 
   useEffect(() => {
     createValidators();
@@ -28,11 +40,20 @@ export function useForm<T extends Record<string, any>>(
     return true;
   }, [formValidation]);
 
-  const onInputChange = ({ target }) => {
+  const onInputChange = (data: any) => {
+    const { target } = data;
     const { name, value } = target;
     setFormState({
       ...formState,
       [name]: value,
+    });
+
+    setInputProperties({
+      ...inputProperties,
+      [name]: {
+        touched: true,
+        value,
+      },
     });
   };
 
@@ -52,13 +73,23 @@ export function useForm<T extends Record<string, any>>(
     setformValidation(formCheckedValues);
   };
 
+  const isFormValueValid = (inputName: string): boolean =>
+    formValidation[`${inputName}Valid`] !== null &&
+    inputProperties[inputName]?.touched;
+
+  const showFormValueInvalidMessage = (inputName: string): string | null =>
+    isFormValueValid(inputName) ? formValidation[`${inputName}Valid`] : '';
+
   return {
     ...formState,
     ...formValidation,
     formValidation,
     formState,
     isFormValid,
+    inputProperties,
     onInputChange,
     onResetForm,
+    isFormValueValid,
+    showFormValueInvalidMessage,
   };
 }
