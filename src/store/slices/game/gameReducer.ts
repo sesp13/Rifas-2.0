@@ -2,9 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameState } from './gameState';
 import { Player } from '../../../interfaces';
 
+// Just for testing
+const numberOfPlayers = 4;
+const dummiePlayers: Player[] = [];
+for (let i = 0; i < numberOfPlayers; i++) {
+  dummiePlayers.push({
+    id: Math.random().toString(16).slice(2),
+    name: '',
+    kickOuts: 0,
+    points: 0,
+  });
+}
+// End my testing
+
 const getInitialState = (): GameState => {
   return {
-    players: [],
+    players: dummiePlayers,
     entryValue: 0,
     kickOutValue: 0,
     pointLimit: 0,
@@ -32,7 +45,12 @@ export const gameSlice = createSlice({
 
       const players: Player[] = [];
       for (let i = 0; i < numberOfPlayers; i++) {
-        players.push({ name: '', kickOuts: 0, points: 0 });
+        players.push({
+          id: Math.random().toString(16).slice(2),
+          name: '',
+          kickOuts: 0,
+          points: 0,
+        });
       }
 
       state.players = players;

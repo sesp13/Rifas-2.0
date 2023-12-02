@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { FormValidation, useForm } from '../../../hooks/useForm';
 import { setupGame } from '../../../store';
 import { isValidNumberAndGreaterThanZero } from '../../../helpers';
+import { useNavigate } from 'react-router-dom';
 
 interface initialSetUpFormType {
   numberOfPlayers: number;
@@ -33,6 +34,7 @@ const validations: FormValidation = {
 
 export const SetupForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialForm: initialSetUpFormType = {
     numberOfPlayers: 0,
@@ -62,6 +64,7 @@ export const SetupForm = () => {
         numberOfPlayers,
       });
       dispatch(action);
+      navigate('/players');
     }
   };
 
