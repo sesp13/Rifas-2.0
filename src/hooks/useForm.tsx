@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 
 export interface FormValidation {
-  [key: string]: [(params: any) => boolean, string];
+  [key: string]: [(params: any) => boolean, string | undefined];
 }
 
 export interface FormErrors {

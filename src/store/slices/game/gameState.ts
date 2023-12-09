@@ -1,7 +1,7 @@
 import { Player } from '../../../interfaces';
 
 export interface GameState {
-  players: Player[];
+  players: Record<string, Player>;
   kickOutValue: number;
   entryValue: number;
   pointLimit: number;

@@ -1,22 +1,64 @@
 import { Button, Grid, TextField } from '@mui/material';
+import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, updatePlayers } from '../../../store';
+import { useDispatch } from 'react-redux';
+import { FormValidation, useForm } from '../../../hooks/useForm';
 import { Player } from '../../../interfaces';
 
 export const SetupPlayersForm = () => {
+  const dispatch = useDispatch();
   const { players } = useSelector((state: RootState) => state.game);
+  const playersArray = Object.keys(players).map((key) => ({ ...players[key] }));
+
+  const initialForm: Record<string, string> = {};
+  const validations: FormValidation = {};
+
+  playersArray.forEach((player) => {
+    initialForm[player.id] = '';
+    validations[player.id] = [
+      (value) => value !== '' && value !== undefined,
+      'El nombre del jugador no es válido',
+    ];
+  });
+
+  const {
+    formState,
+    isFormValid,
+    isFormValueValid,
+    showFormValueInvalidMessage,
+    onInputChange,
+  } = useForm(initialForm, validations);
+
+  const submitSetupPlayersForm = (e: FormEvent) => {
+    e.preventDefault();
+    if (isFormValid) {
+      const playersToDispatch: Record<string, Player> = {};
+      playersArray.forEach((player) => {
+        playersToDispatch[player.id] = {
+          ...players[player.id],
+          name: formState[player.id],
+        };
+      });
+      const action = updatePlayers(playersToDispatch);
+      dispatch(action);
+    }
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={submitSetupPlayersForm}>
         <Grid container spacing={2}>
-          {players.map((player, index) => (
+          {playersArray.map((player, index) => (
             <Grid item xs={6} key={player.id}>
               <TextField
                 label={`Jugador ${index + 1}`}
                 name={player.id}
-                type='text'
+                type="text"
                 fullWidth
+                onChange={onInputChange}
+                error={isFormValueValid(player.id)}
+                helperText={showFormValueInvalidMessage(player.id)}
               />
             </Grid>
           ))}

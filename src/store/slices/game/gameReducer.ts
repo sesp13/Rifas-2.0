@@ -4,14 +4,15 @@ import { Player } from '../../../interfaces';
 
 // Just for testing
 const numberOfPlayers = 4;
-const dummiePlayers: Player[] = [];
+const dummiePlayers: Record<string, Player> = {};
 for (let i = 0; i < numberOfPlayers; i++) {
-  dummiePlayers.push({
-    id: Math.random().toString(16).slice(2),
+  const id = Math.random().toString(16).slice(2);
+  dummiePlayers[id] = {
+    id,
     name: '',
     kickOuts: 0,
     points: 0,
-  });
+  };
 }
 // End my testing
 
@@ -43,19 +44,31 @@ export const gameSlice = createSlice({
       state.kickOutValue = kickOutValue;
       state.pointLimit = pointLimit;
 
-      const players: Player[] = [];
+      const players: Record<string, Player> = {};
       for (let i = 0; i < numberOfPlayers; i++) {
-        players.push({
-          id: Math.random().toString(16).slice(2),
+        const id = Math.random().toString(16).slice(2);
+        dummiePlayers[id] = {
+          id,
           name: '',
           kickOuts: 0,
           points: 0,
-        });
+        };
       }
 
       state.players = players;
     },
+    updatePlayers: (
+      state: GameState,
+      action: PayloadAction<Record<string, Player>>
+    ) => {
+      const playersObj = action.payload;
+      for (const key of Object.keys(playersObj)) {
+        if (state.players[key]) {
+          state.players[key] = { ...playersObj[key] };
+        }
+      }
+    },
   },
 });
 
-export const { setupGame } = gameSlice.actions;
+export const { setupGame, updatePlayers } = gameSlice.actions;
