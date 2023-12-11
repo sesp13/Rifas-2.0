@@ -47,7 +47,7 @@ export const SetupPlayersForm = () => {
 
   return (
     <>
-      <form onSubmit={submitSetupPlayersForm}>
+      <form aria-label='setup-players-form' onSubmit={submitSetupPlayersForm}>
         <Grid container spacing={2}>
           {playersArray.map((player, index) => (
             <Grid item xs={6} key={player.id}>

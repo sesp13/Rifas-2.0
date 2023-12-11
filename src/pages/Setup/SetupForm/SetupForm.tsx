@@ -95,6 +95,7 @@ export const SetupForm = () => {
               variant="standard"
               error={isFormValueValid('kickOutValue')}
               helperText={showFormValueInvalidMessage('kickOutValue')}
+              aria-label="kickOutValue"
             />
           </Grid>
           <Grid item xs={6}>
@@ -107,6 +108,7 @@ export const SetupForm = () => {
               variant="standard"
               error={isFormValueValid('entryValue')}
               helperText={showFormValueInvalidMessage('entryValue')}
+              aria-label="entryValue"
             />
           </Grid>
           <Grid item xs={6}>
@@ -119,6 +121,7 @@ export const SetupForm = () => {
               variant="standard"
               error={isFormValueValid('pointLimit')}
               helperText={showFormValueInvalidMessage('pointLimit')}
+              aria-label="pointLimit"
             />
           </Grid>
           <Grid item xs={12}>

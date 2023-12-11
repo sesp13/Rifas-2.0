@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SetupForm } from './SetupForm';
 import { store } from '../../../store';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { Store } from '@reduxjs/toolkit';
 
 const mockedDispatch = jest.fn();
 
@@ -11,10 +12,10 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockedDispatch,
 }));
 
-const setupComponent = () =>
+const setupComponent = (selectedStore: Store = store) =>
   render(
     <BrowserRouter>
-      <Provider store={store}>
+      <Provider store={selectedStore}>
         <SetupForm />
       </Provider>
     </BrowserRouter>
@@ -36,6 +37,39 @@ describe('Tests on <SetupForm />', () => {
 
   test('should dispatch an action when the form is submmited', () => {
     setupComponent();
+
+    const playersInput = screen
+      .getByLabelText('numberOfPlayers')
+      .querySelector('input');
+
+    if (playersInput) {
+      fireEvent.change(playersInput, { target: { value: '2' } });
+    }
+    
+    const kickOutInput = screen
+      .getByLabelText('kickOutValue')
+      .querySelector('input');
+
+    if (kickOutInput) {
+      fireEvent.change(kickOutInput, { target: { value: '1000' } });
+    }
+
+    const entryInput = screen
+      .getByLabelText('entryValue')
+      .querySelector('input');
+
+    if (entryInput) {
+      fireEvent.change(entryInput, { target: { value: '1000' } });
+    }
+
+    const pointsInput = screen
+      .getByLabelText('pointLimit')
+      .querySelector('input');
+
+    if (pointsInput) {
+      fireEvent.change(pointsInput, { target: { value: '1000' } });
+    }
+
     const submitBtn = screen.getByLabelText('submit-btn');
     fireEvent.click(submitBtn);
     expect(mockedDispatch).toHaveBeenCalled();
