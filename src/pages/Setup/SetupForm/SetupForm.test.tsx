@@ -32,7 +32,7 @@ describe('Tests on <SetupForm />', () => {
       fireEvent.change(playersInput, { target: { value: '' } });
     }
     const submitBtn = screen.getByLabelText('submit-btn');
-    expect(submitBtn.attributes.getNamedItem('disabled')).toBeDefined();
+    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
   });
 
   test('should dispatch an action when the form is submmited', () => {

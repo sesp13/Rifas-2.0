@@ -68,7 +68,7 @@ export const SetupPlayersForm = () => {
               variant="contained"
               type="submit"
               aria-label="submit-btn"
-              // disabled={!isFormValid}
+              disabled={!isFormValid}
             >
               Confirmar
             </Button>

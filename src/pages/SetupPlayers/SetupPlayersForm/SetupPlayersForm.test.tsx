@@ -1,17 +1,24 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { gameSlice } from '../../../store';
 import { SetupPlayersForm } from './SetupPlayersForm';
 import { basicGameState } from '../../../tests';
 
+const mockedDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => mockedDispatch,
+}));
+
 const store = configureStore({
   reducer: {
     game: gameSlice.reducer,
   },
   preloadedState: {
-    game: basicGameState
+    game: basicGameState,
   },
 });
 
@@ -38,5 +45,25 @@ describe('Tests on <SetupPlayersForm />', () => {
     setupComponent();
     const storePlayers = Object.keys(store.getState().game.players).length;
     expect(screen.getAllByRole('textbox').length).toEqual(storePlayers);
+  });
+
+  test('submit button should be disabled by default', () => {
+    setupComponent();
+    const submitBtn = screen.getByRole('button');
+    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+  });
+
+  test('should call dispatch after filling the entire form', () => {
+    setupComponent();
+
+    const inputs = screen.getAllByRole('textbox');
+    inputs.forEach((inputElement) => {
+      fireEvent.change(inputElement, { target: { value: 'Player' } });
+    });
+
+    const submitBtn = screen.getByRole('button');
+    fireEvent.click(submitBtn);
+
+    expect(mockedDispatch).toHaveBeenCalled();
   });
 });
