@@ -35,6 +35,12 @@ describe('Tests on <SetupForm />', () => {
     expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
   });
 
+  test('submit button should be disabled by default', () => {
+    setupComponent();
+    const submitBtn = screen.getByRole('button');
+    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+  });
+  
   test('should dispatch an action when the form is submmited', () => {
     setupComponent();
 
