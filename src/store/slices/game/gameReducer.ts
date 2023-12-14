@@ -6,7 +6,7 @@ import { Player } from '../../../interfaces';
 const dummiePlayers: Record<string, Player> = {
   id123: {
     id: 'id123',
-    name: 'Santiago',
+    name: 'Santiago E',
     kickOuts: 2,
     points: 50,
   },
@@ -35,6 +35,10 @@ const dummieInitialState: GameState = {
   entryValue: 5000,
   kickOutValue: 1000,
   pointLimit: 100,
+  rounds: [],
+  currentRepartitorId: dummiePlayers[Object.keys(dummiePlayers)[0]].id,
+  currentRoundNumber: 1,
+  roundsOrder: Object.keys(dummiePlayers),
 };
 // End testing
 
@@ -43,6 +47,10 @@ const realInitialState: GameState = {
   entryValue: 0,
   kickOutValue: 0,
   pointLimit: 0,
+  rounds: [],
+  currentRepartitorId: '',
+  currentRoundNumber: 1,
+  roundsOrder: [],
 };
 
 // End my testing

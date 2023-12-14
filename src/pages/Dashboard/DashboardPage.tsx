@@ -5,9 +5,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
 export const DashboardPage = () => {
-  const { players, entryValue, kickOutValue } = useSelector(
-    (state: RootState) => state.game
-  );
+  const {
+    players,
+    entryValue,
+    kickOutValue,
+    currentRepartitorId,
+    currentRoundNumber,
+  } = useSelector((state: RootState) => state.game);
   const playersArray: Player[] = Object.keys(players).map(
     (key) => players[key]
   );
@@ -18,10 +22,12 @@ export const DashboardPage = () => {
         <Grid item xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Typography variant="h4">Este turno reparte: Santiago</Typography>
+              <Typography variant="h4">
+                Este turno reparte: {players[currentRepartitorId].name}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h4">Turno 5</Typography>
+              <Typography variant="h4">Turno {currentRoundNumber}</Typography>
             </Grid>
           </Grid>
         </Grid>
