@@ -3,25 +3,53 @@ import { GameState } from './gameState';
 import { Player } from '../../../interfaces';
 
 // Just for testing
-const numberOfPlayers = 4;
-const dummiePlayers: Record<string, Player> = {};
-for (let i = 0; i < numberOfPlayers; i++) {
-  const id = Math.random().toString(16).slice(2);
-  dummiePlayers[id] = {
-    id,
-    name: '',
+const dummiePlayers: Record<string, Player> = {
+  id123: {
+    id: 'id123',
+    name: 'Santiago',
+    kickOuts: 2,
+    points: 50,
+  },
+  id124: {
+    id: 'id124',
+    name: 'Sebastian',
     kickOuts: 0,
-    points: 0,
-  };
-}
+    points: 80,
+  },
+  id125: {
+    id: 'id125',
+    name: 'Nelson',
+    kickOuts: 1,
+    points: 80,
+  },
+  id128: {
+    id: 'id128',
+    name: 'Alonso',
+    kickOuts: 0,
+    points: 45,
+  },
+};
+
+const dummieInitialState: GameState = {
+  players: dummiePlayers,
+  entryValue: 5000,
+  kickOutValue: 1000,
+  pointLimit: 100,
+};
+// End testing
+
+const realInitialState: GameState = {
+  players: {},
+  entryValue: 0,
+  kickOutValue: 0,
+  pointLimit: 0,
+};
+
 // End my testing
 
 const getInitialState = (): GameState => {
   return {
-    players: dummiePlayers,
-    entryValue: 0,
-    kickOutValue: 0,
-    pointLimit: 0,
+    ...dummieInitialState,
   };
 };
 

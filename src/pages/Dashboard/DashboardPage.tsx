@@ -1,29 +1,17 @@
 import { Grid, Typography } from '@mui/material';
 import { DashboardTable } from './DashboardTable/DashboardTable';
 import { Player } from '../../interfaces';
-
-const dummieData: Player[] = [
-  {
-    id: Math.random().toString(16).slice(2),
-    name: 'Pablito',
-    kickOuts: 0,
-    points: 0,
-  },
-  {
-    id: Math.random().toString(16).slice(2),
-    name: 'Nico',
-    kickOuts: 0,
-    points: 0,
-  },
-  {
-    id: Math.random().toString(16).slice(2),
-    name: 'Seba',
-    kickOuts: 0,
-    points: 0,
-  },
-];
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const DashboardPage = () => {
+  const { players, entryValue, kickOutValue } = useSelector(
+    (state: RootState) => state.game
+  );
+  const playersArray: Player[] = Object.keys(players).map(
+    (key) => players[key]
+  );
+
   return (
     <>
       <Grid container spacing={2}>
@@ -38,7 +26,11 @@ export const DashboardPage = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <DashboardTable players={dummieData}></DashboardTable>
+          <DashboardTable
+            players={playersArray}
+            entryValue={entryValue}
+            kickoutValue={kickOutValue}
+          ></DashboardTable>
         </Grid>
       </Grid>
     </>

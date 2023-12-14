@@ -8,9 +8,20 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { calcDebt } from '../../../helpers';
 import { Player } from '../../../interfaces';
 
-export const DashboardTable = ({ players }: { players: Player[] }) => {
+interface DashboardTableProps {
+  players: Player[];
+  entryValue: number;
+  kickoutValue: number;
+}
+
+export const DashboardTable = ({
+  players,
+  entryValue,
+  kickoutValue,
+}: DashboardTableProps) => {
   const rows = players;
 
   return (
@@ -50,7 +61,11 @@ export const DashboardTable = ({ players }: { players: Player[] }) => {
               </TableCell>
               <TableCell>
                 <Typography variant="body1" gutterBottom>
-                  $ 1.000
+                  {calcDebt({
+                    entryValue,
+                    kickoutValue,
+                    numberOfKickouts: row.kickOuts,
+                  })}
                 </Typography>
               </TableCell>
             </TableRow>
