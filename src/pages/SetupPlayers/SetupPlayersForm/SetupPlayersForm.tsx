@@ -5,9 +5,11 @@ import { RootState, updatePlayers } from '../../../store';
 import { useDispatch } from 'react-redux';
 import { FormValidation, useForm } from '../../../hooks/useForm';
 import { Player } from '../../../interfaces';
+import { useNavigate } from 'react-router-dom';
 
 export const SetupPlayersForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { players } = useSelector((state: RootState) => state.game);
   const playersArray = Object.keys(players).map((key) => ({ ...players[key] }));
 
@@ -42,6 +44,7 @@ export const SetupPlayersForm = () => {
       });
       const action = updatePlayers(playersToDispatch);
       dispatch(action);
+      navigate('/dashboard')
     }
   };
 

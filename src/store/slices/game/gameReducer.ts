@@ -76,22 +76,27 @@ export const gameSlice = createSlice({
     ) => {
       const { entryValue, kickOutValue, pointLimit, numberOfPlayers } =
         action.payload;
-      state.entryValue = entryValue;
-      state.kickOutValue = kickOutValue;
-      state.pointLimit = pointLimit;
 
-      const players: Record<string, Player> = {};
+      const setUpPlayers: Record<string, Player> = {};
+      const setupPlayersArray: Player[] = [];
       for (let i = 0; i < numberOfPlayers; i++) {
         const id = Math.random().toString(16).slice(2);
-        dummiePlayers[id] = {
+        const newPlayer = {
           id,
           name: '',
           kickOuts: 0,
           points: 0,
         };
+        setUpPlayers[id] = newPlayer;
+        setupPlayersArray.push(newPlayer);
       }
 
-      state.players = players;
+      state.entryValue = entryValue;
+      state.kickOutValue = kickOutValue;
+      state.pointLimit = pointLimit;
+      state.players = setUpPlayers;
+      state.roundsOrder = Object.keys(state.players);
+      state.currentRepartitorId = setupPlayersArray[0].id;
     },
     updatePlayers: (
       state: GameState,
