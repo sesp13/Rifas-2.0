@@ -1,8 +1,9 @@
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { DashboardTable } from './DashboardTable/DashboardTable';
 import { Player } from '../../interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 export const DashboardPage = () => {
   const {
@@ -15,6 +16,12 @@ export const DashboardPage = () => {
   const playersArray: Player[] = Object.keys(players).map(
     (key) => players[key]
   );
+  
+  const navigate = useNavigate();
+
+  const onEndRound = () => {
+    navigate('/end-round');
+  }
 
   return (
     <>
@@ -37,6 +44,11 @@ export const DashboardPage = () => {
             entryValue={entryValue}
             kickoutValue={kickOutValue}
           ></DashboardTable>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container justifyContent={'end'}>
+            <Button onClick={onEndRound} variant="contained" >Fin de turno</Button>
+          </Grid>
         </Grid>
       </Grid>
     </>
