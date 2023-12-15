@@ -16,18 +16,18 @@ export const DashboardPage = () => {
   const playersArray: Player[] = Object.keys(players).map(
     (key) => players[key]
   );
-  
+
   const navigate = useNavigate();
 
   const onEndRound = () => {
     navigate('/end-round');
-  }
+  };
 
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} aria-label="dashboard-header">
             <Grid item xs={6}>
               <Typography variant="h4">
                 Este turno reparte: {players[currentRepartitorId].name}
@@ -47,7 +47,13 @@ export const DashboardPage = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container justifyContent={'end'}>
-            <Button onClick={onEndRound} variant="contained" >Fin de turno</Button>
+            <Button
+              onClick={onEndRound}
+              variant="contained"
+              aria-label="end-round-btn"
+            >
+              Fin de turno
+            </Button>
           </Grid>
         </Grid>
       </Grid>
