@@ -26,7 +26,7 @@ export const DashboardTable = ({
 
   return (
     <TableContainer component={Card} variant="outlined">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="dashboard-table">
         <TableHead>
           <TableRow>
             <TableCell>Nombre</TableCell>
@@ -38,7 +38,7 @@ export const DashboardTable = ({
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow className='body-row' key={row.id}>
               <TableCell component="th" scope="row">
                 <Typography variant="body1" gutterBottom>
                   {row.name}
@@ -59,7 +59,7 @@ export const DashboardTable = ({
                   {row.kickOuts}
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell className='debt-column'>
                 <Typography variant="body1" gutterBottom>
                   {calcDebt({
                     entryValue,
