@@ -109,7 +109,42 @@ export const gameSlice = createSlice({
         }
       }
     },
+    endRound: (
+      state: GameState,
+      action: PayloadAction<Record<string, number>>
+    ) => {
+      const scores = action.payload;
+      const scoresKeys = Object.keys(scores);
+      const kickedOuts: string[] = [];
+      let currentValidMaxScore: number = state.players[scoresKeys[0]].points;
+
+      scoresKeys.forEach((key) => {
+        const currentScore = state.players[key].points;
+        const newScore = currentScore + scores[key];
+        if (newScore > state.pointLimit) {
+          state.players[key].kickOuts += 1;
+          kickedOuts.push(key);
+        } else {
+          currentValidMaxScore = Math.max(currentValidMaxScore, newScore);
+          state.players[key].points = newScore;
+        }
+      });
+
+      // Set the max valid score for the kickedouts
+      kickedOuts.forEach((key) => {
+        state.players[key].points = currentValidMaxScore;
+      });
+
+      // Check winner
+      if (kickedOuts.length === scoresKeys.length - 1) {
+        console.log('We have a winner');
+      }
+    },
+    setWinner: (state: GameState) => {
+      console.log('Set this action from the another');
+    },
   },
 });
 
-export const { setupGame, updatePlayers } = gameSlice.actions;
+export const { setupGame, updatePlayers, endRound, setWinner } =
+  gameSlice.actions;

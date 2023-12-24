@@ -6,10 +6,12 @@ import {
   TextField,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, endRound } from '../../../store';
 import { Player } from '../../../interfaces';
 import { FormEvent, useState } from 'react';
 import { FormValidation, useForm } from '../../../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface WinnersFormStructure {
   value: boolean;
@@ -17,6 +19,8 @@ interface WinnersFormStructure {
 }
 
 export const EndRoundForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { players } = useSelector((state: RootState) => state.game);
   const playersArray: Player[] = Object.keys(players).map(
     (key) => players[key]
@@ -61,7 +65,7 @@ export const EndRoundForm = () => {
 
     if (isWinnerChecked) {
       // TODO Set this as a property in the state
-      const WINNER_SCORE = -10
+      const WINNER_SCORE = -10;
       formState[playerId] = WINNER_SCORE.toString();
     }
 
@@ -80,7 +84,14 @@ export const EndRoundForm = () => {
   const onSubmitEndRoundForm = (e: FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      console.log(formState);
+      const parsedFormState: Record<string, number> = {};
+      Object.keys(formState).forEach((key) => {
+        parsedFormState[key] = Number.parseInt(formState[key]);
+      });
+
+      const action = endRound(parsedFormState);
+      dispatch(action);
+      navigate('/dashboard');
     }
   };
 
