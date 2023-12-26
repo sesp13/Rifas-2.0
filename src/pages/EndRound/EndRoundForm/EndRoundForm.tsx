@@ -6,12 +6,12 @@ import {
   TextField,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState, endRound } from '../../../store';
+import { RootState, startEndRound } from '../../../store';
 import { Player } from '../../../interfaces';
 import { FormEvent, useState } from 'react';
 import { FormValidation, useForm } from '../../../hooks/useForm';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../hooks';
 
 interface WinnersFormStructure {
   value: boolean;
@@ -19,7 +19,7 @@ interface WinnersFormStructure {
 }
 
 export const EndRoundForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { players } = useSelector((state: RootState) => state.game);
   const playersArray: Player[] = Object.keys(players).map(
@@ -89,9 +89,8 @@ export const EndRoundForm = () => {
         parsedFormState[key] = Number.parseInt(formState[key]);
       });
 
-      const action = endRound(parsedFormState);
-      dispatch(action);
-      navigate('/dashboard');
+      dispatch(startEndRound(parsedFormState));
+      // navigate('/dashboard');
     }
   };
 

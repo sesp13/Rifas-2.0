@@ -32,6 +32,8 @@ const dummiePlayers: Record<string, Player> = {
 
 const dummieInitialState: GameState = {
   players: dummiePlayers,
+  kickedOuts: [],
+  currentValidMaxScore: 0,
   entryValue: 5000,
   kickOutValue: 1000,
   pointLimit: 100,
@@ -44,6 +46,8 @@ const dummieInitialState: GameState = {
 
 const realInitialState: GameState = {
   players: {},
+  kickedOuts: [],
+  currentValidMaxScore: 0,
   entryValue: 0,
   kickOutValue: 0,
   pointLimit: 0,
@@ -135,13 +139,15 @@ export const gameSlice = createSlice({
         state.players[key].points = currentValidMaxScore;
       });
 
-      // Check winner
-      if (kickedOuts.length === scoresKeys.length - 1) {
-        console.log('We have a winner');
-      }
+      state.kickedOuts = kickedOuts;
+      state.currentValidMaxScore = currentValidMaxScore;
     },
     setWinner: (state: GameState) => {
-      console.log('Set this action from the another');
+      const winnerKey = Object.keys(state.players).filter(
+        (key) => !state.kickedOuts.includes(key)
+      )[0];
+      const winnerPlayer = state.players[winnerKey];
+      console.log(winnerPlayer.name);
     },
   },
 });
