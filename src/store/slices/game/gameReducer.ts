@@ -32,8 +32,6 @@ const dummiePlayers: Record<string, Player> = {
 
 const dummieInitialState: GameState = {
   players: dummiePlayers,
-  kickedOuts: [],
-  currentValidMaxScore: 0,
   entryValue: 5000,
   kickOutValue: 1000,
   pointLimit: 100,
@@ -41,13 +39,14 @@ const dummieInitialState: GameState = {
   currentRepartitorId: dummiePlayers[Object.keys(dummiePlayers)[0]].id,
   currentRoundNumber: 1,
   roundsOrder: Object.keys(dummiePlayers),
+  kickedOuts: [],
+  currentValidMaxScore: 0,
+  winnerPlayerKey: null,
 };
 // End testing
 
 const realInitialState: GameState = {
   players: {},
-  kickedOuts: [],
-  currentValidMaxScore: 0,
   entryValue: 0,
   kickOutValue: 0,
   pointLimit: 0,
@@ -55,6 +54,9 @@ const realInitialState: GameState = {
   currentRepartitorId: '',
   currentRoundNumber: 1,
   roundsOrder: [],
+  kickedOuts: [],
+  currentValidMaxScore: 0,
+  winnerPlayerKey: null,
 };
 
 // End my testing
@@ -142,12 +144,8 @@ export const gameSlice = createSlice({
       state.kickedOuts = kickedOuts;
       state.currentValidMaxScore = currentValidMaxScore;
     },
-    setWinner: (state: GameState) => {
-      const winnerKey = Object.keys(state.players).filter(
-        (key) => !state.kickedOuts.includes(key)
-      )[0];
-      const winnerPlayer = state.players[winnerKey];
-      console.log(winnerPlayer.name);
+    setWinner: (state: GameState, action: PayloadAction<string>) => {
+      state.winnerPlayerKey = action.payload;
     },
   },
 });

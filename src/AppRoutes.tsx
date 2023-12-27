@@ -3,6 +3,7 @@ import { SetupPage } from './pages/Setup/SetupPage';
 import { SetupPlayers } from './pages/SetupPlayers/SetupPlayers';
 import { DashboardPage } from './pages/Dashboard/DashboardPage';
 import { EndRoundPage } from './pages/EndRound/EndRoundPage';
+import { WinnerPage } from './pages/Winner/WinnerPage';
 
 export const AppRoutes = () => {
   return (
@@ -11,6 +12,7 @@ export const AppRoutes = () => {
       <Route path="/players" element={<SetupPlayers />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/end-round" element={<EndRoundPage />} />
+      <Route path="/winner" element={<WinnerPage />} />
       <Route path="/*" element={<Navigate to="setup" />} />
     </Routes>
   );
