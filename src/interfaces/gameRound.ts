@@ -4,3 +4,8 @@ export interface GameRound {
   events: [];
   roundNumber: number;
 }
+
+export interface EndRoundData {
+  hasWinner: boolean;
+  winnerKey: string | null;
+}

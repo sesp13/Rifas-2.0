@@ -89,8 +89,13 @@ export const EndRoundForm = () => {
         parsedFormState[key] = Number.parseInt(formState[key]);
       });
 
-      dispatch(startEndRound(parsedFormState));
-      // navigate('/dashboard');
+      dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
+        if (hasWinner) {
+          navigate('/winner');
+        } else {
+          navigate('/dashboard');
+        }
+      });
     }
   };
 

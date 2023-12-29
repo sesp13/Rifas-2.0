@@ -144,11 +144,23 @@ export const gameSlice = createSlice({
       state.kickedOuts = kickedOuts;
       state.currentValidMaxScore = currentValidMaxScore;
     },
+    updateRounds: (state: GameState) => {
+      // Update rounds info
+      state.currentRoundNumber += 1;
+      const currentRepartitorIndex = state.roundsOrder.indexOf(
+        state.currentRepartitorId
+      );
+      const newRepartitorIndex =
+        currentRepartitorIndex + 1 > state.roundsOrder.length - 1
+          ? 0
+          : currentRepartitorIndex + 1;
+      state.currentRepartitorId = state.roundsOrder[newRepartitorIndex];
+    },
     setWinner: (state: GameState, action: PayloadAction<string>) => {
       state.winnerPlayerKey = action.payload;
     },
   },
 });
 
-export const { setupGame, updatePlayers, endRound, setWinner } =
+export const { setupGame, updatePlayers, endRound, updateRounds, setWinner } =
   gameSlice.actions;
