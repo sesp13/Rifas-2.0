@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { gameSlice } from '../../store';
 import { basicGameState } from '../../tests';
 import { DashboardPage } from './DashboardPage';
+import { AppRouting } from '../../routes';
 
 const mockedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -37,6 +38,6 @@ describe('Tests on <DashboardPage />', () => {
     setupComponent();
     const endRoundbtn = screen.getByLabelText('end-round-btn');
     fireEvent.click(endRoundbtn);
-    expect(mockedNavigate).toHaveBeenCalledWith('/end-round');
+    expect(mockedNavigate).toHaveBeenCalledWith(AppRouting.END_ROUND);
   });
 });

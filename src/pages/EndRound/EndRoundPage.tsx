@@ -5,7 +5,9 @@ export const EndRoundPage = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h3">Fin de Turno</Typography>
+        <Typography variant="h3" aria-label="end-round-title">
+          Fin de Turno
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <Typography variant="body1" marginTop={2} textAlign={'left'}>
