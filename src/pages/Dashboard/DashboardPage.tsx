@@ -4,6 +4,7 @@ import { Player } from '../../interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
+import { AppRouting } from '../../routes';
 
 export const DashboardPage = () => {
   const {
@@ -20,7 +21,7 @@ export const DashboardPage = () => {
   const navigate = useNavigate();
 
   const onEndRound = () => {
-    navigate('/end-round');
+    navigate(AppRouting.END_ROUND);
   };
 
   return (

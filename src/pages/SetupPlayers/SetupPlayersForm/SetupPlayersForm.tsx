@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { FormValidation, useForm } from '../../../hooks/useForm';
 import { Player } from '../../../interfaces';
 import { useNavigate } from 'react-router-dom';
+import { AppRouting } from '../../../routes';
 
 export const SetupPlayersForm = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export const SetupPlayersForm = () => {
       });
       const action = updatePlayers(playersToDispatch);
       dispatch(action);
-      navigate('/dashboard')
+      navigate(AppRouting.DASHBOARD)
     }
   };
 

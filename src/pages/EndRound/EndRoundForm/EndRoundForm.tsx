@@ -12,6 +12,7 @@ import { FormEvent, useState } from 'react';
 import { FormValidation, useForm } from '../../../hooks/useForm';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks';
+import { AppRouting } from '../../../routes';
 
 interface WinnersFormStructure {
   value: boolean;
@@ -91,9 +92,9 @@ export const EndRoundForm = () => {
 
       dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
         if (hasWinner) {
-          navigate('/winner');
+          navigate(AppRouting.WINNER);
         } else {
-          navigate('/dashboard');
+          navigate(AppRouting.DASHBOARD);
         }
       });
     }

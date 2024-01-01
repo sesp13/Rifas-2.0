@@ -6,7 +6,7 @@ import '@fontsource/roboto/700.css';
 import './App.scss';
 import { HeaderComponent } from './components/header/HeaderComponent';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { AppRoutes } from './AppRoutes';
+import { AppRoutes } from './routes/AppRoutes';
 
 const darkTheme = createTheme({
   palette: {

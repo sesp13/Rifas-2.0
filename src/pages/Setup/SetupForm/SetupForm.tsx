@@ -5,6 +5,7 @@ import { FormValidation, useForm } from '../../../hooks/useForm';
 import { setupGame } from '../../../store';
 import { isValidNumberAndGreaterThanZero } from '../../../helpers';
 import { useNavigate } from 'react-router-dom';
+import { AppRouting } from '../../../routes';
 
 interface initialSetUpFormType {
   numberOfPlayers: number;
@@ -64,7 +65,7 @@ export const SetupForm = () => {
         numberOfPlayers,
       });
       dispatch(action);
-      navigate('/players');
+      navigate(AppRouting.PLAYERS);
     }
   };
 
