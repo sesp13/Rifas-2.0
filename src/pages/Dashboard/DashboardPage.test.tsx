@@ -34,6 +34,16 @@ describe('Tests on <DashboardPage />', () => {
     expect(header).toBeTruthy();
   });
 
+  test('kickedOuts panel should not be visible', () => {
+    setupComponent();
+    let kickedOutsPanel: HTMLElement | null = null;
+    try {
+      kickedOutsPanel = screen.getByLabelText('kicked-outs-panel');
+    } catch (err) {
+      expect(kickedOutsPanel).toBeFalsy();
+    }
+  });
+
   test('End round should redirect to end round page', () => {
     setupComponent();
     const endRoundbtn = screen.getByLabelText('end-round-btn');

@@ -17,4 +17,7 @@ export const basicGameState: GameState = {
   currentRoundNumber: 1,
   rounds: [],
   roundsOrder: [...basicPlayersArray],
+  kickedOuts: [],
+  currentValidMaxScore: 0,
+  winnerPlayerKey: '',
 };

@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { gameSlice } from '../../../store';
 import { basicGameState } from '../../../tests';
 import {
-  act,
   fireEvent,
   render,
   screen,

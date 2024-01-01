@@ -5,12 +5,23 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { AppRouting } from '../../routes';
+import { KickedOutsList } from './KickedOutsList/KickedOutsList';
+
+const showKickedOuts = (kickedOutsArray: string[]) =>
+  kickedOutsArray.length > 0 ? (
+    <Grid item xs={12}>
+      <KickedOutsList />
+    </Grid>
+  ) : (
+    ''
+  );
 
 export const DashboardPage = () => {
   const {
     players,
     entryValue,
     kickOutValue,
+    kickedOuts,
     currentRepartitorId,
     currentRoundNumber,
   } = useSelector((state: RootState) => state.game);
@@ -39,6 +50,7 @@ export const DashboardPage = () => {
             </Grid>
           </Grid>
         </Grid>
+        {showKickedOuts(kickedOuts)}
         <Grid item xs={12}>
           <DashboardTable
             players={playersArray}
