@@ -114,6 +114,7 @@ export const EndRoundForm = () => {
               onChange={onInputChange}
               error={isFormValueValid(player.id)}
               helperText={showFormValueInvalidMessage(player.id)}
+              data-testid='player-points'
             />
             <FormControlLabel
               control={
