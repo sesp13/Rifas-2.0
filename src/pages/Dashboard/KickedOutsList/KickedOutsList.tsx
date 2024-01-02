@@ -1,4 +1,12 @@
-import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
+import {
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { useAppSelector } from '../../../hooks';
 
 export const KickedOutsList = () => {
@@ -22,10 +30,10 @@ export const KickedOutsList = () => {
               const player = players[key];
               return (
                 <ListItem key={key}>
-                  <ListItemText
-                    primary={player.name}
-                    sx={{ textAlign: 'center' }}
-                  />
+                  <ListItemIcon>
+                    <CloseIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={player.name} />
                 </ListItem>
               );
             })}
