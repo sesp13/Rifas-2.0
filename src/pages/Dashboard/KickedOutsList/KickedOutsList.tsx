@@ -3,12 +3,14 @@ import { useAppSelector } from '../../../hooks';
 
 export const KickedOutsList = () => {
   const { kickedOuts, players } = useAppSelector((state) => state.game);
+  const kickedOutsTitle =
+    kickedOuts.length === 1 ? 'Este turno voló' : 'Este turno volaron';
   return (
-    <Grid container aria-label='kicked-outs-panel'>
-      <Grid item sm={12}>
-        <Typography>Este turno Volaron</Typography>
+    <Grid container aria-label="kicked-outs-panel">
+      <Grid item xs={12}>
+        <Typography>{kickedOutsTitle}</Typography>
       </Grid>
-      <Grid item sm={12}>
+      <Grid item xs={12}>
         <Grid container sx={{ justifyContent: 'center' }}>
           <List
             sx={{
@@ -19,7 +21,7 @@ export const KickedOutsList = () => {
             {kickedOuts.map((key) => {
               const player = players[key];
               return (
-                <ListItem>
+                <ListItem key={key}>
                   <ListItemText
                     primary={player.name}
                     sx={{ textAlign: 'center' }}

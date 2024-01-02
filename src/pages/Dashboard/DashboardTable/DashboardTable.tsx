@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { calcDebt } from '../../../helpers';
+import { calcDebtWithFormat } from '../../../helpers';
 import { Player } from '../../../interfaces';
 
 interface DashboardTableProps {
@@ -38,7 +38,7 @@ export const DashboardTable = ({
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow className='body-row' key={row.id}>
+            <TableRow className="body-row" key={row.id}>
               <TableCell component="th" scope="row">
                 <Typography variant="body1" gutterBottom>
                   {row.name}
@@ -59,9 +59,9 @@ export const DashboardTable = ({
                   {row.kickOuts}
                 </Typography>
               </TableCell>
-              <TableCell className='debt-column'>
+              <TableCell className="debt-column">
                 <Typography variant="body1" gutterBottom>
-                  {calcDebt({
+                  {calcDebtWithFormat({
                     entryValue,
                     kickoutValue,
                     numberOfKickouts: row.kickOuts,

@@ -1,3 +1,5 @@
+import { NumberFormatCOP } from './CurrencyFormat';
+
 export interface DebtParams {
   entryValue: number;
   kickoutValue: number;
@@ -9,3 +11,6 @@ export const calcDebt = ({
   kickoutValue,
   numberOfKickouts,
 }: DebtParams) => entryValue + kickoutValue * numberOfKickouts;
+
+export const calcDebtWithFormat = (params: DebtParams) =>
+  NumberFormatCOP(calcDebt(params));

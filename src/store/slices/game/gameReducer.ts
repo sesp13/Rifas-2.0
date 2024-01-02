@@ -39,7 +39,7 @@ const dummieInitialState: GameState = {
   currentRepartitorId: dummiePlayers[Object.keys(dummiePlayers)[0]].id,
   currentRoundNumber: 1,
   roundsOrder: Object.keys(dummiePlayers),
-  kickedOuts: [],
+  kickedOuts: ['id128', 'id125'],
   currentValidMaxScore: 0,
   winnerPlayerKey: null,
 };
