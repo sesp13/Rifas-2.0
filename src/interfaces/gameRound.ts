@@ -1,8 +1,15 @@
 export interface GameRound {
   repartitorId: string;
-  // TODO - Log Game events
-  events: [];
+  eventsPerPlayer: Record<string,PlayerEvent>;
   roundNumber: number;
+}
+
+export interface PlayerEvent {
+  playerKey: string,
+  startPoints: number;
+  endPoints: number;
+  isKickedOut: boolean;
+  kickOuts: number;
 }
 
 export interface EndRoundData {

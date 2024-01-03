@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameState } from './gameState';
-import { Player } from '../../../interfaces';
+import { GameRound, Player } from '../../../interfaces';
 
 // Just for testing
 const dummiePlayers: Record<string, Player> = {
@@ -159,8 +159,11 @@ export const gameSlice = createSlice({
     setWinner: (state: GameState, action: PayloadAction<string>) => {
       state.winnerPlayerKey = action.payload;
     },
+    logRound: (state: GameState, action: PayloadAction<GameRound>) => {
+      state.rounds.push(action.payload);
+    },
   },
 });
 
-export const { setupGame, updatePlayers, endRound, updateRounds, setWinner } =
+export const { setupGame, updatePlayers, endRound, updateRounds, setWinner, logRound } =
   gameSlice.actions;
