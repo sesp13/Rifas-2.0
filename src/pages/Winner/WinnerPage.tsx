@@ -1,16 +1,65 @@
+import { Typography } from '@mui/material';
 import { useAppSelector } from '../../hooks';
+import { WinnerTable } from './WinnerTable.tsx/WinnerTable';
+import { NumberFormatCOP, calcDebt, calcDebtWithFormat } from '../../helpers';
 
 export const WinnerPage = () => {
-  const { winnerPlayerKey, players } = useAppSelector((state) => state.game);
+  const { winnerPlayerKey, players, entryValue, kickOutValue } = useAppSelector(
+    (state) => state.game
+  );
 
   if (!winnerPlayerKey) return <p>Error: No winner setted</p>;
-
   const winnerPlayer = players[winnerPlayerKey];
+
+  const losers = Object.keys(players)
+    .filter((key) => key !== winnerPlayerKey)
+    .map((key) => players[key]);
+
+  const finalIncome = losers.reduce(
+    (acumulator, currentPlayer) =>
+      acumulator +
+      calcDebt({
+        entryValue,
+        kickoutValue: kickOutValue,
+        numberOfKickouts: currentPlayer.kickOuts,
+      }),
+    0
+  );
 
   return (
     <>
-      <p>We have a winner now!</p>
-      <p>{winnerPlayer.name}</p>
+      <Typography variant="body1">Tenemos un ganador!</Typography>
+      <Typography variant="h3" gutterBottom>
+        {winnerPlayer.name}
+      </Typography>
+      <Typography variant="body1" marginBottom={2} align="left">
+        Información de los perdedores
+      </Typography>
+      <WinnerTable
+        players={losers}
+        entryValue={entryValue}
+        kickoutValue={kickOutValue}
+      />
+      <Typography variant="h4" align="left" marginTop={2}>
+        Datos del ganador
+      </Typography>
+      <ul>
+        <li>
+          <Typography variant="body1" align="left">
+            En total ganaste: {NumberFormatCOP(finalIncome)}
+          </Typography>
+        </li>
+        <li>
+          <Typography variant="body1" align="left">
+            En total ahorraste:{' '}
+            {calcDebtWithFormat({
+              entryValue,
+              kickoutValue: kickOutValue,
+              numberOfKickouts: winnerPlayer.kickOuts,
+            })}
+          </Typography>
+        </li>
+      </ul>
     </>
   );
 };
