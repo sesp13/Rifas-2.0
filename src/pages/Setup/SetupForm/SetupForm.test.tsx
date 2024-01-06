@@ -31,7 +31,7 @@ describe('Tests on <SetupForm />', () => {
     if (playersInput) {
       fireEvent.change(playersInput, { target: { value: '' } });
     }
-    const submitBtn = screen.getByLabelText('submit-btn');
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
     expect(submitBtn).toHaveProperty('disabled', true);
   });
 
@@ -40,7 +40,7 @@ describe('Tests on <SetupForm />', () => {
     const submitBtn = screen.getByRole('button');
     expect(submitBtn).toHaveProperty('disabled', true);
   });
-  
+
   test('should dispatch an action when the form is submmited', () => {
     setupComponent();
 
@@ -51,7 +51,7 @@ describe('Tests on <SetupForm />', () => {
     if (playersInput) {
       fireEvent.change(playersInput, { target: { value: '2' } });
     }
-    
+
     const kickOutInput = screen
       .getByLabelText('kickOutValue')
       .querySelector('input');
@@ -76,7 +76,7 @@ describe('Tests on <SetupForm />', () => {
       fireEvent.change(pointsInput, { target: { value: '1000' } });
     }
 
-    const submitBtn = screen.getByLabelText('submit-btn');
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
     fireEvent.click(submitBtn);
     expect(mockedDispatch).toHaveBeenCalled();
   });

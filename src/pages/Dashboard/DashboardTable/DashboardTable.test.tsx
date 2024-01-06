@@ -6,7 +6,7 @@ import { gameSlice } from '../../../store';
 import { basicGameState } from '../../../tests';
 import { DashboardTable } from './DashboardTable';
 import { Player } from '../../../interfaces';
-import { calcDebt, calcDebtWithFormat } from '../../../helpers';
+import { calcDebtWithFormat } from '../../../helpers';
 
 const store = configureStore({
   reducer: { game: gameSlice.reducer },

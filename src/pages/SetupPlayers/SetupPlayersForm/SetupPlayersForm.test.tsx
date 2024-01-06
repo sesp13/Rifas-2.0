@@ -61,7 +61,7 @@ describe('Tests on <SetupPlayersForm />', () => {
       fireEvent.change(inputElement, { target: { value: 'Player' } });
     });
 
-    const submitBtn = screen.getByRole('button');
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
     fireEvent.click(submitBtn);
 
     expect(mockedDispatch).toHaveBeenCalled();

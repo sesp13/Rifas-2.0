@@ -83,7 +83,7 @@ describe('Tests on <EndRoundForm />', () => {
     setupComponent();
     fillForm();
 
-    const submitBtn = screen.getByRole('button');
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
     fireEvent.click(submitBtn);
 
     await waitFor(() => {
@@ -101,7 +101,7 @@ describe('Tests on <EndRoundForm />', () => {
     setupComponent();
     fillForm();
 
-    const submitBtn = screen.getByRole('button');
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
     fireEvent.click(submitBtn);
 
     await waitFor(() => {
