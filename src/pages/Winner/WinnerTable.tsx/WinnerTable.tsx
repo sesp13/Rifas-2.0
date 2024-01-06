@@ -31,13 +31,13 @@ export const WinnerTable = ({
             <TableCell>Número de voladas</TableCell>
           </TableRow>
           {players.map((player) => (
-            <TableRow key={player.id}>
-              <TableCell component="th" scope="row">
+            <TableRow className='body-row' key={player.id}>
+              <TableCell component="th" scope="row" className='name-column'>
                 <Typography variant="body1" gutterBottom>
                   {player.name}
                 </Typography>
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" className="debt-column">
                 <Typography variant="body1" gutterBottom>
                   {calcDebtWithFormat({
                     entryValue,
@@ -46,7 +46,7 @@ export const WinnerTable = ({
                   })}
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell className='kickouts-column'>
                 <Typography variant="body1" gutterBottom>
                   {player.kickOuts}
                 </Typography>
