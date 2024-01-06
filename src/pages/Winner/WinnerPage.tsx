@@ -29,7 +29,7 @@ export const WinnerPage = () => {
   return (
     <>
       <Typography variant="body1">Tenemos un ganador!</Typography>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h3" aria-label="winners-name" gutterBottom>
         {winnerPlayer.name}
       </Typography>
       <Typography variant="body1" marginBottom={2} align="left">
@@ -46,17 +46,20 @@ export const WinnerPage = () => {
       <ul>
         <li>
           <Typography variant="body1" align="left">
-            En total ganaste: {NumberFormatCOP(finalIncome)}
+            En total ganaste:{' '}
+            <span className="won-ammount">{NumberFormatCOP(finalIncome)}</span>
           </Typography>
         </li>
         <li>
           <Typography variant="body1" align="left">
-            En total ahorraste:{' '}
-            {calcDebtWithFormat({
-              entryValue,
-              kickoutValue: kickOutValue,
-              numberOfKickouts: winnerPlayer.kickOuts,
-            })}
+            En total ahorraste:
+            <span className="total-savings">
+              {calcDebtWithFormat({
+                entryValue,
+                kickoutValue: kickOutValue,
+                numberOfKickouts: winnerPlayer.kickOuts,
+              })}
+            </span>
           </Typography>
         </li>
       </ul>
