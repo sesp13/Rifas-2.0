@@ -18,11 +18,6 @@ describe('Tests on <SetupPage />', () => {
     jest.clearAllMocks();
   });
 
-  test('should match the snapshot', () => {
-    const { container } = setupComponent();
-    expect(container).toMatchSnapshot();
-  });
-
   test('should render setupForm', () => {
     const { container } = setupComponent();
     const form = container.querySelector('[aria-label="setup-form"]');

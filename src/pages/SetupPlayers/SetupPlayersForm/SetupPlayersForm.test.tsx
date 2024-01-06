@@ -50,7 +50,7 @@ describe('Tests on <SetupPlayersForm />', () => {
   test('submit button should be disabled by default', () => {
     setupComponent();
     const submitBtn = screen.getByRole('button');
-    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+    expect(submitBtn).toHaveProperty('disabled', true);
   });
 
   test('should call dispatch after filling the entire form', () => {

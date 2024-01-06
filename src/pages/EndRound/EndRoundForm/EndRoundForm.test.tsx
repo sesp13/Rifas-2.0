@@ -1,12 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { gameSlice } from '../../../store';
 import { basicGameState } from '../../../tests';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { EndRoundForm } from './EndRoundForm';
@@ -65,7 +60,7 @@ describe('Tests on <EndRoundForm />', () => {
   test('submit button should be disabled by default', () => {
     setupComponent();
     const submitBtn = screen.getByRole('button');
-    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+    expect(submitBtn).toHaveProperty('disabled', true);
   });
 
   test('if a winner checkbox is checked should disable the others', () => {
@@ -75,7 +70,7 @@ describe('Tests on <EndRoundForm />', () => {
     const otherChecks = screen.getAllByRole('checkbox');
     otherChecks.shift();
     otherChecks.forEach((element) => {
-      expect(element.attributes.getNamedItem('disabled')).toBeTruthy();
+      expect(element).toHaveProperty('disabled', true);
     });
   });
 

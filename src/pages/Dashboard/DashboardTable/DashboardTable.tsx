@@ -22,8 +22,6 @@ export const DashboardTable = ({
   entryValue,
   kickoutValue,
 }: DashboardTableProps) => {
-  const rows = players;
-
   return (
     <TableContainer component={Card} variant="outlined">
       <Table sx={{ minWidth: 650 }} aria-label="dashboard-table">
@@ -37,26 +35,26 @@ export const DashboardTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow className="body-row" key={row.id}>
+          {players.map((playerRow) => (
+            <TableRow className="body-row" key={playerRow.id}>
               <TableCell component="th" scope="row">
                 <Typography variant="body1" gutterBottom>
-                  {row.name}
+                  {playerRow.name}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="body1" gutterBottom>
-                  {row.points}
+                  {playerRow.points}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="body1" gutterBottom>
-                  {101 - row.points}
+                  {101 - playerRow.points}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="body1" gutterBottom>
-                  {row.kickOuts}
+                  {playerRow.kickOuts}
                 </Typography>
               </TableCell>
               <TableCell className="debt-column">
@@ -64,7 +62,7 @@ export const DashboardTable = ({
                   {calcDebtWithFormat({
                     entryValue,
                     kickoutValue,
-                    numberOfKickouts: row.kickOuts,
+                    numberOfKickouts: playerRow.kickOuts,
                   })}
                 </Typography>
               </TableCell>

@@ -32,13 +32,13 @@ describe('Tests on <SetupForm />', () => {
       fireEvent.change(playersInput, { target: { value: '' } });
     }
     const submitBtn = screen.getByLabelText('submit-btn');
-    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+    expect(submitBtn).toHaveProperty('disabled', true);
   });
 
   test('submit button should be disabled by default', () => {
     setupComponent();
     const submitBtn = screen.getByRole('button');
-    expect(submitBtn.attributes.getNamedItem('disabled')).toBeTruthy();
+    expect(submitBtn).toHaveProperty('disabled', true);
   });
   
   test('should dispatch an action when the form is submmited', () => {

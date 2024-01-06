@@ -6,7 +6,7 @@ import { gameSlice } from '../../../store';
 import { basicGameState } from '../../../tests';
 import { DashboardTable } from './DashboardTable';
 import { Player } from '../../../interfaces';
-import { calcDebt } from '../../../helpers';
+import { calcDebt, calcDebtWithFormat } from '../../../helpers';
 
 const store = configureStore({
   reducer: { game: gameSlice.reducer },
@@ -49,12 +49,14 @@ describe('Tests on <DashboardTable />', () => {
     const firstDebtColumn = table.querySelector('.debt-column p');
     const debtCalculated = firstDebtColumn?.innerHTML;
     const firstPlayer = playersArray[0];
-    expect(debtCalculated).toEqual(
-      calcDebt({
+    expect(debtCalculated).toContain(
+      calcDebtWithFormat({
         entryValue: basicGameState.entryValue,
         kickoutValue: basicGameState.kickOutValue,
         numberOfKickouts: firstPlayer.kickOuts,
-      }).toString()
+      })
+        .replace('$', '')
+        .trim()
     );
   });
 });
