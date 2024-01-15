@@ -30,12 +30,129 @@ const dummiePlayers: Record<string, Player> = {
   },
 };
 
+const dummieRounds: GameRound[] = [
+  {
+    repartitorId: 'id123',
+    eventsPerPlayer: {
+      id123: {
+        playerKey: 'id123',
+        startPoints: 50,
+        endPoints: 55,
+        earnedPoints: 5,
+        isKickedOut: false,
+        kickOuts: 2,
+      },
+      id124: {
+        playerKey: 'id124',
+        startPoints: 80,
+        endPoints: 90,
+        earnedPoints: 10,
+        isKickedOut: false,
+        kickOuts: 0,
+      },
+      id125: {
+        playerKey: 'id125',
+        startPoints: 80,
+        endPoints: 90,
+        earnedPoints: 28,
+        isKickedOut: true,
+        kickOuts: 2,
+      },
+      id128: {
+        playerKey: 'id128',
+        startPoints: 45,
+        endPoints: 46,
+        earnedPoints: 1,
+        isKickedOut: false,
+        kickOuts: 0,
+      },
+    },
+    roundNumber: 1,
+  },
+  {
+    repartitorId: 'id124',
+    eventsPerPlayer: {
+      id123: {
+        playerKey: 'id123',
+        startPoints: 55,
+        endPoints: 75,
+        earnedPoints: 20,
+        isKickedOut: false,
+        kickOuts: 2,
+      },
+      id124: {
+        playerKey: 'id124',
+        startPoints: 90,
+        endPoints: 100,
+        earnedPoints: 10,
+        isKickedOut: false,
+        kickOuts: 0,
+      },
+      id125: {
+        playerKey: 'id125',
+        startPoints: 90,
+        endPoints: 91,
+        earnedPoints: 1,
+        isKickedOut: false,
+        kickOuts: 2,
+      },
+      id128: {
+        playerKey: 'id128',
+        startPoints: 46,
+        endPoints: 76,
+        earnedPoints: 30,
+        isKickedOut: false,
+        kickOuts: 0,
+      },
+    },
+    roundNumber: 2,
+  },
+  {
+    repartitorId: 'id125',
+    eventsPerPlayer: {
+      id123: {
+        playerKey: 'id123',
+        startPoints: 75,
+        endPoints: 80,
+        earnedPoints: 5,
+        isKickedOut: false,
+        kickOuts: 2,
+      },
+      id124: {
+        playerKey: 'id124',
+        startPoints: 100,
+        endPoints: 90,
+        earnedPoints: -10,
+        isKickedOut: false,
+        kickOuts: 0,
+      },
+      id125: {
+        playerKey: 'id125',
+        startPoints: 91,
+        endPoints: 92,
+        earnedPoints: 1,
+        isKickedOut: false,
+        kickOuts: 2,
+      },
+      id128: {
+        playerKey: 'id128',
+        startPoints: 76,
+        endPoints: 92,
+        earnedPoints: 30,
+        isKickedOut: true,
+        kickOuts: 1,
+      },
+    },
+    roundNumber: 3,
+  },
+];
+
 const dummieInitialState: GameState = {
   players: dummiePlayers,
   entryValue: 5000,
   kickOutValue: 1000,
   pointLimit: 100,
-  rounds: [],
+  rounds: dummieRounds,
   currentRepartitorId: dummiePlayers[Object.keys(dummiePlayers)[0]].id,
   currentRoundNumber: 1,
   roundsOrder: Object.keys(dummiePlayers),
@@ -165,5 +282,11 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setupGame, updatePlayers, endRound, updateRounds, setWinner, logRound } =
-  gameSlice.actions;
+export const {
+  setupGame,
+  updatePlayers,
+  endRound,
+  updateRounds,
+  setWinner,
+  logRound,
+} = gameSlice.actions;

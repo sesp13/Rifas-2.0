@@ -8,6 +8,7 @@ export interface PlayerEvent {
   playerKey: string,
   startPoints: number;
   endPoints: number;
+  earnedPoints: number;
   isKickedOut: boolean;
   kickOuts: number;
 }

@@ -26,12 +26,17 @@ export const startEndRound = (payload: Record<string, number>) => {
     };
 
     Object.keys(gameState.players).forEach((key) => {
+      const earnedPointsInRound = payload[key];
+      const currentScore = gameState.players[key].points;
+      const currentKickouts = gameState.players[key].kickOuts;
+
       roundLog.eventsPerPlayer[key] = {
         playerKey: key,
-        startPoints: gameState.players[key].points,
+        startPoints: currentScore,
         endPoints: 0,
+        earnedPoints: earnedPointsInRound,
         isKickedOut: false,
-        kickOuts: gameState.players[key].kickOuts,
+        kickOuts: currentKickouts,
       };
     });
 
@@ -41,11 +46,14 @@ export const startEndRound = (payload: Record<string, number>) => {
     gameState = getState().game;
     Object.keys(gameState.players).forEach((key) => {
       const isPlayerKickedOut = gameState.kickedOuts.includes(key);
+      const pointsAfterRound = gameState.players[key].points;
+      const kickoutsAfterRound = gameState.players[key].kickOuts;
+
       roundLog.eventsPerPlayer[key] = {
         ...roundLog.eventsPerPlayer[key],
-        endPoints: gameState.players[key].points,
+        endPoints: pointsAfterRound,
         isKickedOut: isPlayerKickedOut,
-        kickOuts: gameState.players[key].kickOuts,
+        kickOuts: kickoutsAfterRound,
       };
     });
 
