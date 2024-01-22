@@ -35,6 +35,10 @@ export const DashboardPage = () => {
     navigate(AppRouting.END_ROUND);
   };
 
+  const onGameLog = () => {
+    navigate(AppRouting.GAME_LOG);
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -59,7 +63,14 @@ export const DashboardPage = () => {
           ></DashboardTable>
         </Grid>
         <Grid item xs={12}>
-          <Grid container justifyContent={'end'}>
+          <Grid container sx={{ justifyContent: 'space-between' }}>
+            <Button
+              onClick={onGameLog}
+              variant="contained"
+              aria-label="game-log-btn"
+            >
+              Ver registro de juegos
+            </Button>
             <Button
               onClick={onEndRound}
               variant="contained"

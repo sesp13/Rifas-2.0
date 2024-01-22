@@ -1,11 +1,18 @@
-import { Container, Grid, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { useAppSelector } from '../../hooks';
 import { GameLogTable } from './GameLogTable/GameLogtable';
+import { useNavigate } from 'react-router-dom';
+import { AppRouting } from '../../routes';
 
 export const GameLogPage = () => {
   const { rounds, players: storePlayers } = useAppSelector(
     (state) => state.game
   );
+  const navigate = useNavigate();
+
+  const goToDashboard = () => {
+    navigate(AppRouting.DASHBOARD);
+  };
 
   return (
     <Grid container spacing={2}>
@@ -13,6 +20,18 @@ export const GameLogPage = () => {
         <Typography variant="h4" align="center">
           Registro de Juegos
         </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'end',
+          }}
+        >
+          <Button variant="contained" onClick={goToDashboard}>
+            Volver al tablero
+          </Button>
+        </Container>
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={2}>
@@ -37,6 +56,13 @@ export const GameLogPage = () => {
             );
           })}
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Container sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Button variant="contained" onClick={goToDashboard}>
+            Volver al tablero
+          </Button>
+        </Container>
       </Grid>
     </Grid>
   );

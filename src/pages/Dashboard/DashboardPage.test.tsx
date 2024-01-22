@@ -44,7 +44,14 @@ describe('Tests on <DashboardPage />', () => {
     }
   });
 
-  test('End round should redirect to end round page', () => {
+  test('Go to game log button should redirect to game log page', () => {
+    setupComponent();
+    const gameLogBtn = screen.getByLabelText('game-log-btn');
+    fireEvent.click(gameLogBtn);
+    expect(mockedNavigate).toHaveBeenCalledWith(AppRouting.GAME_LOG);
+  });
+
+  test('End round button should redirect to end round page', () => {
     setupComponent();
     const endRoundbtn = screen.getByLabelText('end-round-btn');
     fireEvent.click(endRoundbtn);
