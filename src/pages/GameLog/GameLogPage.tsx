@@ -8,6 +8,7 @@ export const GameLogPage = () => {
   const { rounds, players: storePlayers } = useAppSelector(
     (state) => state.game
   );
+  const reversedRounds = [...rounds].reverse();
   const navigate = useNavigate();
 
   const goToDashboard = () => {
@@ -35,26 +36,28 @@ export const GameLogPage = () => {
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {rounds.map(({ roundNumber, eventsPerPlayer, repartitorId }) => {
-            return (
-              <Grid item xs={12} key={roundNumber}>
-                <Container
-                  sx={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <Typography variant="h5" marginBottom={2}>
-                    Ronda {roundNumber}
-                  </Typography>
-                  <Typography variant="h5">
-                    Repartidor: {storePlayers[repartitorId].name}
-                  </Typography>
-                </Container>
-                <GameLogTable
-                  playerEvents={eventsPerPlayer}
-                  players={storePlayers}
-                />
-              </Grid>
-            );
-          })}
+          {reversedRounds.map(
+            ({ roundNumber, eventsPerPlayer, repartitorId }) => {
+              return (
+                <Grid item xs={12} key={roundNumber}>
+                  <Container
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
+                  >
+                    <Typography variant="h5" marginBottom={2}>
+                      Ronda {roundNumber}
+                    </Typography>
+                    <Typography variant="h5">
+                      Repartidor: {storePlayers[repartitorId].name}
+                    </Typography>
+                  </Container>
+                  <GameLogTable
+                    playerEvents={eventsPerPlayer}
+                    players={storePlayers}
+                  />
+                </Grid>
+              );
+            }
+          )}
         </Grid>
       </Grid>
       <Grid item xs={12}>

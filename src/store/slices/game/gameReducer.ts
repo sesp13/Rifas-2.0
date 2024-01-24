@@ -154,7 +154,7 @@ const dummieInitialState: GameState = {
   pointLimit: 100,
   rounds: dummieRounds,
   currentRepartitorId: dummiePlayers[Object.keys(dummiePlayers)[0]].id,
-  currentRoundNumber: 1,
+  currentRoundNumber: dummieRounds.length + 1,
   roundsOrder: Object.keys(dummiePlayers),
   kickedOuts: ['id128', 'id125'],
   currentValidMaxScore: 0,
