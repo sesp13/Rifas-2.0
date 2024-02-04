@@ -3,6 +3,7 @@ import {
   RootState,
   endRound,
   logRound,
+  revertPreviousRound,
   setWinner,
   updateRounds,
 } from '../..';
@@ -74,4 +75,13 @@ export const startEndRound = (payload: Record<string, number>) => {
       winnerKey,
     };
   };
+};
+
+export const startEditLastRound = (payload: Record<string, number>) => {
+  return async (
+    dispatch: AppDispatch,
+    getState: () => RootState
+  ): Promise<any> => { 
+    dispatch(revertPreviousRound());
+  }
 };

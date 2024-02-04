@@ -6,7 +6,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState, startEndRound } from '../../../store';
+import { RootState, startEditLastRound, startEndRound } from '../../../store';
 import { Player } from '../../../interfaces';
 import { FormEvent, useState } from 'react';
 import { FormValidation, useForm } from '../../../hooks/useForm';
@@ -107,7 +107,9 @@ export const EndRoundForm = (params: EndRoundFormParams) => {
       });
 
       if (isEditMode) {
-        // Dispatch new action revert last round
+        dispatch(startEditLastRound(parsedFormState)).then(() => {
+          navigate(AppRouting.DASHBOARD);
+        });
       } else {
         dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
           if (hasWinner) {

@@ -25,7 +25,7 @@ const dummiePlayers: Record<string, Player> = {
   id128: {
     id: 'id128',
     name: 'Alonso',
-    kickOuts: 0,
+    kickOuts: 1,
     points: 45,
   },
 };
@@ -261,6 +261,37 @@ export const gameSlice = createSlice({
       state.kickedOuts = kickedOuts;
       state.currentValidMaxScore = currentValidMaxScore;
     },
+    revertPreviousRound: (state: GameState) => {
+      const updatedRounds = [...state.rounds];
+      const previousRound = updatedRounds.pop();
+
+      if (previousRound) {
+        Object.keys(previousRound.eventsPerPlayer).forEach((key) => {
+          const event = previousRound.eventsPerPlayer[key];
+          state.players[key].points = event.startPoints;
+          if (event.isKickedOut) {
+            state.players[key].kickOuts -= 1;
+          }
+        });
+
+        // Reset kickedouts
+        state.kickedOuts = [];
+
+        // Reset round meta data
+        state.currentRoundNumber -= 1;
+        const currentRepartitorIndex = state.roundsOrder.indexOf(
+          state.currentRepartitorId
+        );
+        const newRepartitorIndex =
+          currentRepartitorIndex - 1 < 0
+            ? state.roundsOrder.length - 1
+            : currentRepartitorIndex - 1;
+        state.currentRepartitorId = state.roundsOrder[newRepartitorIndex];
+
+        // Delete old round from round log
+        state.rounds = updatedRounds;
+      }
+    },
     updateRounds: (state: GameState) => {
       // Update rounds info
       state.currentRoundNumber += 1;
@@ -289,4 +320,5 @@ export const {
   updateRounds,
   setWinner,
   logRound,
+  revertPreviousRound,
 } = gameSlice.actions;
