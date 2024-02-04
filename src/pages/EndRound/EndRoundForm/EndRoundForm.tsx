@@ -19,13 +19,19 @@ interface WinnersFormStructure {
   isDisabled: boolean;
 }
 
-export const EndRoundForm = () => {
+interface EndRoundFormParams {
+  isEditMode?: boolean;
+}
+
+export const EndRoundForm = (params: EndRoundFormParams) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { players } = useSelector((state: RootState) => state.game);
+  const { players, rounds } = useSelector((state: RootState) => state.game);
   const playersArray: Player[] = Object.keys(players).map(
     (key) => players[key]
   );
+  const { isEditMode } = params;
+  const submitBtnLabel = isEditMode ? 'Editar' : 'Confirmar';
 
   const initialForm: Record<string, string> = {};
   const validations: FormValidation = {};
@@ -82,6 +88,16 @@ export const EndRoundForm = () => {
     setWinnersForm(newWinnersFormState);
   };
 
+  if (isEditMode) {
+    const latestRound = rounds[rounds.length - 1];
+    if (latestRound) {
+      Object.keys(latestRound.eventsPerPlayer).forEach((key) => {
+        const event = latestRound.eventsPerPlayer[key];
+        formState[key] = event.earnedPoints.toString();
+      });
+    }
+  }
+
   const onSubmitEndRoundForm = (e: FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
@@ -90,13 +106,17 @@ export const EndRoundForm = () => {
         parsedFormState[key] = Number.parseInt(formState[key]);
       });
 
-      dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
-        if (hasWinner) {
-          navigate(AppRouting.WINNER);
-        } else {
-          navigate(AppRouting.DASHBOARD);
-        }
-      });
+      if (isEditMode) {
+        // Dispatch new action revert last round
+      } else {
+        dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
+          if (hasWinner) {
+            navigate(AppRouting.WINNER);
+          } else {
+            navigate(AppRouting.DASHBOARD);
+          }
+        });
+      }
     }
   };
 
@@ -114,7 +134,7 @@ export const EndRoundForm = () => {
               onChange={onInputChange}
               error={isFormValueValid(player.id)}
               helperText={showFormValueInvalidMessage(player.id)}
-              data-testid='player-points'
+              data-testid="player-points"
             />
             <FormControlLabel
               control={
@@ -136,7 +156,7 @@ export const EndRoundForm = () => {
             aria-label="submit-btn"
             disabled={!isFormValid}
           >
-            Confirmar
+            {submitBtnLabel}
           </Button>
         </Grid>
       </Grid>

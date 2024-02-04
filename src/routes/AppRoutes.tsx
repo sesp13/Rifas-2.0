@@ -13,7 +13,7 @@ export const AppRoutes = () => {
       <Route path={AppRouting.SET_UP} element={<SetupPage />} />
       <Route path={AppRouting.PLAYERS} element={<SetupPlayers />} />
       <Route path={AppRouting.DASHBOARD} element={<DashboardPage />} />
-      <Route path={AppRouting.END_ROUND} element={<EndRoundPage />} />
+      <Route path={`${AppRouting.END_ROUND}/:edit?`} element={<EndRoundPage />} />
       <Route path={AppRouting.WINNER} element={<WinnerPage />} />
       <Route path={AppRouting.GAME_LOG} element={<GameLogPage />} />
       <Route path="/*" element={<Navigate to="setup" />} />

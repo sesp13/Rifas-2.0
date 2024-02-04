@@ -39,6 +39,10 @@ export const DashboardPage = () => {
     navigate(AppRouting.GAME_LOG);
   };
 
+  const onEditLastRound = () => {
+    navigate(`${AppRouting.END_ROUND}/true`);
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -70,6 +74,13 @@ export const DashboardPage = () => {
               aria-label="game-log-btn"
             >
               Ver registro de juegos
+            </Button>
+            <Button
+              onClick={onEditLastRound}
+              variant="contained"
+              aria-label="game-log-btn"
+            >
+              Editar último turno
             </Button>
             <Button
               onClick={onEndRound}
