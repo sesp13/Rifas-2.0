@@ -266,16 +266,25 @@ export const gameSlice = createSlice({
       const previousRound = updatedRounds.pop();
 
       if (previousRound) {
-        Object.keys(previousRound.eventsPerPlayer).forEach((key) => {
+        const eventsPerPlayerKeys = Object.keys(previousRound.eventsPerPlayer);
+        let currentValidMaxScore: number =
+          previousRound.eventsPerPlayer[eventsPerPlayerKeys[0]].startPoints;
+
+        eventsPerPlayerKeys.forEach((key) => {
           const event = previousRound.eventsPerPlayer[key];
           state.players[key].points = event.startPoints;
           if (event.isKickedOut) {
             state.players[key].kickOuts -= 1;
           }
+          currentValidMaxScore = Math.max(
+            currentValidMaxScore,
+            event.startPoints
+          );
         });
 
-        // Reset kickedouts
+        // Reset kickedouts and valid max score
         state.kickedOuts = [];
+        state.currentValidMaxScore = currentValidMaxScore;
 
         // Reset round meta data
         state.currentRoundNumber -= 1;

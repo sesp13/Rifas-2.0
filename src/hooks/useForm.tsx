@@ -87,6 +87,7 @@ export function useForm<T extends Record<string, any>>(
     formState,
     isFormValid,
     inputProperties,
+    setFormState,
     onInputChange,
     onResetForm,
     isFormValueValid,

@@ -81,7 +81,8 @@ export const startEditLastRound = (payload: Record<string, number>) => {
   return async (
     dispatch: AppDispatch,
     getState: () => RootState
-  ): Promise<any> => { 
+  ): Promise<EndRoundData> => { 
     dispatch(revertPreviousRound());
+    return dispatch(startEndRound(payload))
   }
 };

@@ -8,7 +8,7 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState, startEditLastRound, startEndRound } from '../../../store';
 import { Player } from '../../../interfaces';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { FormValidation, useForm } from '../../../hooks/useForm';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks';
@@ -52,6 +52,7 @@ export const EndRoundForm = (params: EndRoundFormParams) => {
   const {
     formState,
     isFormValid,
+    setFormState,
     onInputChange,
     isFormValueValid,
     showFormValueInvalidMessage,
@@ -88,15 +89,27 @@ export const EndRoundForm = (params: EndRoundFormParams) => {
     setWinnersForm(newWinnersFormState);
   };
 
-  if (isEditMode) {
-    const latestRound = rounds[rounds.length - 1];
-    if (latestRound) {
-      Object.keys(latestRound.eventsPerPlayer).forEach((key) => {
-        const event = latestRound.eventsPerPlayer[key];
-        formState[key] = event.earnedPoints.toString();
-      });
+  useEffect(() => {
+    if (isEditMode) {
+      const latestRound = rounds[rounds.length - 1];
+      if (latestRound) {
+        const newFormState = { ...formState };
+        Object.keys(latestRound.eventsPerPlayer).forEach((key) => {
+          const event = latestRound.eventsPerPlayer[key];
+          newFormState[key] = event.earnedPoints.toString();
+        });
+        setFormState(newFormState);
+      }
     }
-  }
+  }, []);
+
+  const checkWinner = (hasWinner: boolean) => {
+    if (hasWinner) {
+      navigate(AppRouting.WINNER);
+    } else {
+      navigate(AppRouting.DASHBOARD);
+    }
+  };
 
   const onSubmitEndRoundForm = (e: FormEvent) => {
     e.preventDefault();
@@ -107,17 +120,13 @@ export const EndRoundForm = (params: EndRoundFormParams) => {
       });
 
       if (isEditMode) {
-        dispatch(startEditLastRound(parsedFormState)).then(() => {
-          navigate(AppRouting.DASHBOARD);
-        });
+        dispatch(startEditLastRound(parsedFormState)).then(({ hasWinner }) =>
+          checkWinner(hasWinner)
+        );
       } else {
-        dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) => {
-          if (hasWinner) {
-            navigate(AppRouting.WINNER);
-          } else {
-            navigate(AppRouting.DASHBOARD);
-          }
-        });
+        dispatch(startEndRound(parsedFormState)).then(({ hasWinner }) =>
+          checkWinner(hasWinner)
+        );
       }
     }
   };
