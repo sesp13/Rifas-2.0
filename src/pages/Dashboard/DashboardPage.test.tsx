@@ -51,6 +51,13 @@ describe('Tests on <DashboardPage />', () => {
     expect(mockedNavigate).toHaveBeenCalledWith(AppRouting.GAME_LOG);
   });
 
+  test('Go to edit last round button should redirect to edit last round page', () => {
+    setupComponent();
+    const editLastRoundBtn = screen.getByLabelText('edit-last-round-btn');
+    fireEvent.click(editLastRoundBtn);
+    expect(mockedNavigate).toHaveBeenCalledWith(`${AppRouting.END_ROUND}/true`);
+  });
+
   test('End round button should redirect to end round page', () => {
     setupComponent();
     const endRoundbtn = screen.getByLabelText('end-round-btn');

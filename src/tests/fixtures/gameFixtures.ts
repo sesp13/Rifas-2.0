@@ -1,4 +1,4 @@
-import { Player } from '../../interfaces';
+import { GameRound, Player } from '../../interfaces';
 import { GameState } from '../../store';
 
 const basicPlayers: Record<string, Player> = {
@@ -16,6 +16,38 @@ const playersWithDebts: Record<string, Player> = {
 const basicPlayersArray = Object.keys(basicPlayers);
 const playersWithDebtsArray = Object.keys(basicPlayers);
 
+const gameRounds: GameRound[] = [
+  {
+    eventsPerPlayer: {
+      player1: {
+        startPoints: 10,
+        earnedPoints: 25,
+        endPoints: 35,
+        isKickedOut: false,
+        kickOuts: 0,
+        playerKey: 'player1',
+      },
+      player2: {
+        startPoints: 0,
+        earnedPoints: -10,
+        endPoints: -10,
+        isKickedOut: false,
+        kickOuts: 0,
+        playerKey: 'player2',
+      },
+      player3: {
+        startPoints: 50,
+        earnedPoints: 60,
+        endPoints: 35,
+        isKickedOut: true,
+        kickOuts: 1,
+        playerKey: 'player3',
+      },
+    },
+    repartitorId: 'player1',
+    roundNumber: 1,
+  },
+]
 export const basicGameState: GameState = {
   players: basicPlayers,
   entryValue: 1000,
@@ -23,7 +55,7 @@ export const basicGameState: GameState = {
   pointLimit: 100,
   currentRepartitorId: basicPlayersArray[0],
   currentRoundNumber: 1,
-  rounds: [],
+  rounds: gameRounds,
   roundsOrder: [...basicPlayersArray],
   kickedOuts: [],
   currentValidMaxScore: 0,

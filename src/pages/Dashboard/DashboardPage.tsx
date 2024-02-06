@@ -78,7 +78,7 @@ export const DashboardPage = () => {
             <Button
               onClick={onEditLastRound}
               variant="contained"
-              aria-label="game-log-btn"
+              aria-label="edit-last-round-btn"
             >
               Editar último turno
             </Button>

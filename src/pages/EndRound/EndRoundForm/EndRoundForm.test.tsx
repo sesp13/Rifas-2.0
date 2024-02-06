@@ -4,7 +4,7 @@ import { basicGameState } from '../../../tests';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { EndRoundForm } from './EndRoundForm';
+import { EndRoundForm, EndRoundFormParams } from './EndRoundForm';
 import { AppRouting } from '../../../routes';
 
 const mockedDispatch = jest.fn();
@@ -29,11 +29,11 @@ const store = configureStore({
   },
 });
 
-const setupComponent = () =>
+const setupComponent = (params?: EndRoundFormParams) =>
   render(
     <Provider store={store}>
       <BrowserRouter>
-        <EndRoundForm />
+        <EndRoundForm {...params} />
       </BrowserRouter>
     </Provider>
   );
@@ -108,5 +108,22 @@ describe('Tests on <EndRoundForm />', () => {
       expect(mockedDispatch).toHaveBeenCalled();
       expect(mockedNavigate).toHaveBeenCalledWith(AppRouting.DASHBOARD);
     });
+  });
+
+  test('edit mode should fill the form with the latest round points', async () => {
+    setupComponent({ isEditMode: true });
+    const inputsContainers = screen.getAllByTestId('player-points');
+    inputsContainers.forEach((container) => {
+      const inputValue = (container.querySelector('input') as HTMLInputElement)
+        .value;
+      expect(inputValue).toBeTruthy();
+    });
+  });
+
+  test('edit mode should call the dispatch', () => {
+    setupComponent({ isEditMode: true });
+    const submitBtn = screen.getByRole('button', { name: 'submit-btn' });
+    fireEvent.click(submitBtn);
+    expect(mockedDispatch).toHaveBeenCalled();
   });
 });

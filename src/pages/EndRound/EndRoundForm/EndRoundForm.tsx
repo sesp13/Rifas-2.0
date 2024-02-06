@@ -19,7 +19,7 @@ interface WinnersFormStructure {
   isDisabled: boolean;
 }
 
-interface EndRoundFormParams {
+export interface EndRoundFormParams {
   isEditMode?: boolean;
 }
 
@@ -118,7 +118,7 @@ export const EndRoundForm = (params: EndRoundFormParams) => {
       Object.keys(formState).forEach((key) => {
         parsedFormState[key] = Number.parseInt(formState[key]);
       });
-
+      
       if (isEditMode) {
         dispatch(startEditLastRound(parsedFormState)).then(({ hasWinner }) =>
           checkWinner(hasWinner)
