@@ -31,16 +31,8 @@ export const DashboardPage = () => {
 
   const navigate = useNavigate();
 
-  const onEndRound = () => {
-    navigate(AppRouting.END_ROUND);
-  };
-
-  const onGameLog = () => {
-    navigate(AppRouting.GAME_LOG);
-  };
-
-  const onEditLastRound = () => {
-    navigate(`${AppRouting.END_ROUND}/true`);
+  const onNavigatePage = (route: AppRouting | string) => {
+    navigate(route);
   };
 
   return (
@@ -69,21 +61,28 @@ export const DashboardPage = () => {
         <Grid item xs={12}>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Button
-              onClick={onGameLog}
+              onClick={() => onNavigatePage(AppRouting.GAME_LOG)}
               variant="contained"
               aria-label="game-log-btn"
             >
               Ver registro de juegos
             </Button>
             <Button
-              onClick={onEditLastRound}
+              onClick={() => onNavigatePage(AppRouting.CHANGE_ORDER)}
+              variant="contained"
+              aria-label="change-order-btn"
+            >
+              Cambiar el orden de los jugadores
+            </Button>
+            <Button
+              onClick={() => onNavigatePage(`${AppRouting.END_ROUND}/true`)}
               variant="contained"
               aria-label="edit-last-round-btn"
             >
               Editar último turno
             </Button>
             <Button
-              onClick={onEndRound}
+              onClick={() => onNavigatePage(AppRouting.END_ROUND)}
               variant="contained"
               aria-label="end-round-btn"
             >

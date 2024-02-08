@@ -4,5 +4,6 @@ export enum AppRouting {
   DASHBOARD = '/dashboard',
   END_ROUND = '/end-round',
   WINNER = '/winner',
-  GAME_LOG = '/game-log'
+  GAME_LOG = '/game-log',
+  CHANGE_ORDER = '/change-order'
 }

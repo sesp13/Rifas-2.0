@@ -6,6 +6,7 @@ import { EndRoundPage } from '../pages/EndRound/EndRoundPage';
 import { WinnerPage } from '../pages/Winner/WinnerPage';
 import { AppRouting } from './AppRouting.enum';
 import { GameLogPage } from '../pages/GameLog/GameLogPage';
+import { ChangeOrderPage } from '../pages/ChangeOrder/ChangeOrderPage';
 
 export const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ export const AppRoutes = () => {
       <Route path={`${AppRouting.END_ROUND}/:edit?`} element={<EndRoundPage />} />
       <Route path={AppRouting.WINNER} element={<WinnerPage />} />
       <Route path={AppRouting.GAME_LOG} element={<GameLogPage />} />
+      <Route path={AppRouting.CHANGE_ORDER} element={<ChangeOrderPage />} />
       <Route path="/*" element={<Navigate to="setup" />} />
     </Routes>
   );
