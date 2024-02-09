@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { List, ListItem, ListItemText } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import { useState } from 'react';
 
 export interface OrderablePlayer {
@@ -9,9 +16,13 @@ export interface OrderablePlayer {
 
 interface OrderableListParams {
   itemsParams: OrderablePlayer[];
+  onNewOrder: (items: OrderablePlayer[]) => void;
 }
 
-export const OrderableList = ({ itemsParams }: OrderableListParams) => {
+export const OrderableList = ({
+  itemsParams,
+  onNewOrder,
+}: OrderableListParams) => {
   const [draggingItem, setDraggingItem] = useState<OrderablePlayer | null>(
     null
   );
@@ -40,24 +51,40 @@ export const OrderableList = ({ itemsParams }: OrderableListParams) => {
       items.splice(currentIndex, 1);
       items.splice(targetIndex, 0, draggingItem);
       setListItems(items);
+      onNewOrder([...items]);
     }
   };
 
   return (
-    <List>
-      {items.map((item) => (
-        <ListItem
-          sx={{ border: '1px', borderColor: 'white' }}
-          key={item.id}
-          draggable="true"
-          onDragStart={(e) => handleDragStart(e, item)}
-          onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          onDrop={(e) => handleDrop(e, item)}
-        >
-          <ListItemText sx={{ textAlign: 'center' }}>{item.name}</ListItemText>
-        </ListItem>
-      ))}
-    </List>
+    <Grid container justifyContent={'center'}>
+      <List sx={{ bgcolor: 'background.paper', width: 300, padding: 0 }}>
+        {items.map((item, index) => (
+          <Box key={item.id}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: '10px',
+              }}
+              draggable="true"
+              onDragStart={(e) => handleDragStart(e, item)}
+              onDragEnd={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, item)}
+            >
+              <Box>
+                <ListItemText sx={{ textAlign: 'center' }}>
+                  Posicion {index + 1}
+                </ListItemText>
+                <ListItemText sx={{ textAlign: 'center' }}>
+                  {item.name}
+                </ListItemText>
+              </Box>
+            </ListItem>
+            <Divider />
+          </Box>
+        ))}
+      </List>
+    </Grid>
   );
 };
