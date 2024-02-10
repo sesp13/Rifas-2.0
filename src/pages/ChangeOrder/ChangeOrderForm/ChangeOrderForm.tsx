@@ -1,4 +1,9 @@
-import { Button, Grid } from '@mui/material';
+import {
+  Button,
+  Grid,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import { OrderableList, OrderablePlayer } from '../OrderableList/OrderableList';
 import { useAppSelector, useForm } from '../../../hooks';
 import { FormEvent } from 'react';
@@ -21,7 +26,8 @@ export const ChangeOrderForm = () => {
     repartitorId: playersToOrder[0].id,
   };
 
-  const { setFormState, formState } = useForm(initialForm);
+  const { setFormState, onInputChange, repartitorId, formState } =
+    useForm(initialForm);
 
   const handleNewOrder = (items: OrderablePlayer[]) => {
     const newFormState = { ...formState };
@@ -31,12 +37,11 @@ export const ChangeOrderForm = () => {
 
   const submitChangeForm = (e: FormEvent) => {
     e.preventDefault();
-    console.log(formState);
   };
 
   return (
     <form aria-label="change-order-form" onSubmit={submitChangeForm}>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <p>
             Por favor situa el nombre del jugador en la posición que desees
@@ -48,12 +53,27 @@ export const ChangeOrderForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
+          <p>Nuevo repartidor</p>
+          <Select
+            labelId="new-repartitor-label"
+            value={repartitorId}
+            onChange={onInputChange}
+            name="repartitorId"
+            sx={{ width: 400 }}
+          >
+            {Object.keys(players).map((playerKey) => (
+              <MenuItem key={playerKey} value={playerKey}>
+                {players[playerKey].name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item xs={12}>
           <Button
             variant="contained"
             type="submit"
             aria-label="submit-btn"
-            // disabled={!isFormValid}
-            sx={{marginTop: '25px'}}
+            sx={{ marginTop: '25px' }}
           >
             Cambiar
           </Button>

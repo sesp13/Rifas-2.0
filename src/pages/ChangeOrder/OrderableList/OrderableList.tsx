@@ -57,7 +57,7 @@ export const OrderableList = ({
 
   return (
     <Grid container justifyContent={'center'}>
-      <List sx={{ bgcolor: 'background.paper', width: 300, padding: 0 }}>
+      <List sx={{ bgcolor: 'background.paper', width: 400, padding: 0 }}>
         {items.map((item, index) => (
           <Box key={item.id}>
             <ListItem
