@@ -24,10 +24,9 @@ export const DashboardPage = () => {
     kickedOuts,
     currentRepartitorId,
     currentRoundNumber,
+    roundsOrder,
   } = useSelector((state: RootState) => state.game);
-  const playersArray: Player[] = Object.keys(players).map(
-    (key) => players[key]
-  );
+  const playersArray: Player[] = roundsOrder.map((key) => players[key]);
 
   const navigate = useNavigate();
 
@@ -59,7 +58,7 @@ export const DashboardPage = () => {
           ></DashboardTable>
         </Grid>
         <Grid item xs={12}>
-          <Grid container sx={{ justifyContent: 'space-between' }}>
+          <Grid container sx={{ justifyContent: 'space-between', gap: '10px' }}>
             <Button
               onClick={() => onNavigatePage(AppRouting.GAME_LOG)}
               variant="contained"
