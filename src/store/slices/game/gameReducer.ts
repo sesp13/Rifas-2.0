@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameState } from './gameState';
-import { GameRound, Player } from '../../../interfaces';
+import { ChangeOrderPayload, GameRound, Player } from '../../../interfaces';
 
 // Just for testing
 const dummiePlayers: Record<string, Player> = {
@@ -319,6 +319,14 @@ export const gameSlice = createSlice({
     logRound: (state: GameState, action: PayloadAction<GameRound>) => {
       state.rounds.push(action.payload);
     },
+    changePlayersOrder: (
+      state: GameState,
+      action: PayloadAction<ChangeOrderPayload>
+    ) => {
+      const { playersOrder, repartitorId } = action.payload;
+      state.roundsOrder = playersOrder;
+      state.currentRepartitorId = repartitorId;
+    },
   },
 });
 
@@ -330,4 +338,5 @@ export const {
   setWinner,
   logRound,
   revertPreviousRound,
+  changePlayersOrder
 } = gameSlice.actions;

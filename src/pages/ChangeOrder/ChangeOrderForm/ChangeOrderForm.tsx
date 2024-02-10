@@ -1,12 +1,10 @@
-import {
-  Button,
-  Grid,
-  MenuItem,
-  Select,
-} from '@mui/material';
+import { Button, Grid, MenuItem, Select } from '@mui/material';
 import { OrderableList, OrderablePlayer } from '../OrderableList/OrderableList';
-import { useAppSelector, useForm } from '../../../hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../../hooks';
 import { FormEvent } from 'react';
+import { changePlayersOrder } from '../../../store';
+import { useNavigate } from 'react-router-dom';
+import { AppRouting } from '../../../routes';
 
 interface initialChangeOrderFormType {
   playersOrdered: OrderablePlayer[];
@@ -15,6 +13,8 @@ interface initialChangeOrderFormType {
 
 export const ChangeOrderForm = () => {
   const { players, roundsOrder } = useAppSelector((state) => state.game);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const playersToOrder: OrderablePlayer[] = roundsOrder.map((key) => ({
     id: key,
@@ -26,8 +26,13 @@ export const ChangeOrderForm = () => {
     repartitorId: playersToOrder[0].id,
   };
 
-  const { setFormState, onInputChange, repartitorId, formState } =
-    useForm(initialForm);
+  const {
+    setFormState,
+    onInputChange,
+    repartitorId,
+    playersOrdered,
+    formState,
+  } = useForm(initialForm);
 
   const handleNewOrder = (items: OrderablePlayer[]) => {
     const newFormState = { ...formState };
@@ -37,6 +42,9 @@ export const ChangeOrderForm = () => {
 
   const submitChangeForm = (e: FormEvent) => {
     e.preventDefault();
+    const playersOrder = playersOrdered.map((item) => item.id);
+    dispatch(changePlayersOrder({ playersOrder, repartitorId }));
+    navigate(AppRouting.DASHBOARD);
   };
 
   return (
