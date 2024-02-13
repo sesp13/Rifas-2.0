@@ -59,8 +59,8 @@ export const SetupForm = () => {
     if (isFormValid) {
       e.preventDefault();
       const action = setupGame({
-        entryValue,
-        kickOutValue,
+        entryValue: Number(entryValue),
+        kickOutValue: Number(kickOutValue),
         pointLimit,
         numberOfPlayers,
       });
