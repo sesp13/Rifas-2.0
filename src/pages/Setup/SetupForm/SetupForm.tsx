@@ -61,8 +61,8 @@ export const SetupForm = () => {
       const action = setupGame({
         entryValue: Number(entryValue),
         kickOutValue: Number(kickOutValue),
-        pointLimit,
-        numberOfPlayers,
+        pointLimit: Number(pointLimit),
+        numberOfPlayers: Number(numberOfPlayers),
       });
       dispatch(action);
       navigate(AppRouting.PLAYERS);

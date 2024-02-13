@@ -218,6 +218,7 @@ export const gameSlice = createSlice({
       state.kickOutValue = kickOutValue;
       state.pointLimit = pointLimit;
       state.players = setUpPlayers;
+      state.currentRoundNumber = 1;
       state.kickedOuts = [];
       state.rounds = [];
       state.roundsOrder = Object.keys(state.players);
