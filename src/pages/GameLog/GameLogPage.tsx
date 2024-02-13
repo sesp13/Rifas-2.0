@@ -62,7 +62,7 @@ export const GameLogPage = () => {
       </Grid>
       <Grid item xs={12}>
         <Container sx={{ display: 'flex', justifyContent: 'end' }}>
-          <Button variant="contained" onClick={goToDashboard}>
+          <Button variant="contained" onClick={goToDashboard} aria-label='go-to-dashboard-btn'>
             Volver al tablero
           </Button>
         </Container>
